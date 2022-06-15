@@ -1,5 +1,4 @@
-package ru.javatrain.sandbox.src.main;
-
+package ru.javatrain.main;
 public class MyFirstProgram {
     public static void main(String[] args) {
         hello("world");
@@ -13,14 +12,20 @@ public class MyFirstProgram {
 
         System.out.println("Площадь прямоугольника со сторонами " + r.a + " и " + r.b + "=" + r.area());
 
+        Point p1 = new Point(2, 3);
+
+        System.out.println(p1.x);
+
+        p1.x = 10;
+
+        System.out.println(p1.x);
+
+        Point p2 = new Point(6, 1);
+
+        System.out.println(p2.x);
     }
 
     public static void hello(String somebody) {
         System.out.println("Hello," + somebody + "!");
-
-
     }
-
-
-
 }
