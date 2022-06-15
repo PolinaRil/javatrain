@@ -13,19 +13,18 @@ public class MyFirstProgram {
         System.out.println("Площадь прямоугольника со сторонами " + r.a + " и " + r.b + "=" + r.area());
 
         Point p1 = new Point(2, 3);
-
-        System.out.println(p1.x);
-
-        p1.x = 10;
-
-        System.out.println(p1.x);
-
         Point p2 = new Point(6, 1);
 
-        System.out.println(p2.x);
+        double d = distance(p1, p2);
+
+        System.out.println("Расстояние между точками = " + d);
     }
 
     public static void hello(String somebody) {
         System.out.println("Hello," + somebody + "!");
     }
+
+   public static double distance (Point p1, Point p2) {
+        return Math.sqrt((p1.x - p2.x)*(p1.x - p2.x) + (p1.y - p2.y)*(p1.y - p2.y));
+   }
 }
