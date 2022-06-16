@@ -1,4 +1,4 @@
-package ru.javatrain.main;
+package ru.javatrain.sandbox;
 public class Sandbox {
     public static void main(String[] args) {
         Point p1 = new Point(2, 3);
