@@ -1,12 +1,10 @@
-package com.example.tests;
+package ru.javatrain.addressbook;
 
-import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.testng.annotations.*;
 import static org.testng.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class ContactCreationTest {
   private WebDriver driver;
@@ -16,27 +14,33 @@ public class ContactCreationTest {
 
   @BeforeClass(alwaysRun = true)
   public void setUp() throws Exception {
+    System.setProperty("webdriver.gecko.driver", "C:\\Users\\selecty\\Sites\\geckodriver\\geckodriver.exe");
     driver = new FirefoxDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    login();
   }
 
   @Test
   public void testContactCreation() throws Exception {
-    driver.get("http://localhost/addressbook/");
-    driver.findElement(By.name("user")).click();
-    driver.findElement(By.name("user")).clear();
-    driver.findElement(By.name("user")).sendKeys("admin");
-    driver.findElement(By.id("LoginForm")).click();
-    driver.findElement(By.name("pass")).click();
-    driver.findElement(By.name("pass")).clear();
-    driver.findElement(By.name("pass")).sendKeys("secret");
-    driver.findElement(By.xpath("//input[@value='Login']")).click();
-    driver.findElement(By.id("content")).click();
-    driver.findElement(By.linkText("add new")).click();
+    gotoContacts();
+    createnewContact();
+    fillNewContact();
+    submitnewContact();
+    returntoContact();
+  }
+
+  private void returntoContact() {
+    driver.findElement(By.linkText("home")).click();
+  }
+
+  private void submitnewContact() {
+    driver.findElement(By.name("submit")).click();
+  }
+
+  private void fillNewContact() {
     driver.findElement(By.name("firstname")).click();
     driver.findElement(By.name("firstname")).click();
-    // ERROR: Caught exception [ERROR: Unsupported command [doubleClick | name=firstname | ]]
     driver.findElement(By.name("firstname")).clear();
     driver.findElement(By.name("firstname")).sendKeys("Cont1");
     driver.findElement(By.name("middlename")).click();
@@ -82,8 +86,26 @@ public class ContactCreationTest {
     driver.findElement(By.name("email3")).clear();
     driver.findElement(By.name("email3")).sendKeys("neveragain@gmail.com");
     driver.findElement(By.name("theform")).click();
-    driver.findElement(By.name("submit")).click();
-    driver.findElement(By.linkText("home")).click();
+  }
+
+  private void createnewContact() {
+    driver.findElement(By.linkText("add new")).click();
+  }
+
+  private void gotoContacts() {
+    driver.findElement(By.id("content")).click();
+  }
+
+  private void login() {
+    driver.get("http://localhost/addressbook/");
+    driver.findElement(By.name("user")).click();
+    driver.findElement(By.name("user")).clear();
+    driver.findElement(By.name("user")).sendKeys("admin");
+    driver.findElement(By.id("LoginForm")).click();
+    driver.findElement(By.name("pass")).click();
+    driver.findElement(By.name("pass")).clear();
+    driver.findElement(By.name("pass")).sendKeys("secret");
+    driver.findElement(By.xpath("//input[@value='Login']")).click();
   }
 
   @AfterClass(alwaysRun = true)
