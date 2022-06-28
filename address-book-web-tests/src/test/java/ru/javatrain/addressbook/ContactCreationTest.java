@@ -18,14 +18,14 @@ public class ContactCreationTest {
     driver = new FirefoxDriver();
     baseUrl = "https://www.google.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    login();
+    login("admin", "secret");
   }
 
   @Test
   public void testContactCreation() throws Exception {
     gotoContacts();
     createnewContact();
-    fillNewContact();
+    fillNewContact("Cont2", "Cont3", "Cont", "title", "COMPANY", "Novosibirsk", "nope","nope", "999999999", "tester", "999999991", "neveragain1@gmail.com", "neveragain2@gmail.com","neveragain2@gmail.com" );
     submitnewContact();
     returntoContact();
   }
@@ -38,53 +38,57 @@ public class ContactCreationTest {
     driver.findElement(By.name("submit")).click();
   }
 
-  private void fillNewContact() {
+  private void fillNewContact(String name, String patrname, String lastname, String nickname, String title, String company, String city, String home) {
+    fillNewContact(name, patrname, lastname, nickname, title, company, city, home, "999999999", "tester", "999999991", "neveragain1@gmail.com", "neveragain2@gmail.com", "neveragain2@gmail.com");
+  }
+
+  private void fillNewContact(String name, String patrname, String lastname, String nickname, String title, String company, String city, String home, String mobphone, String position, String fax, String email1, String email2, String email3) {
     driver.findElement(By.name("firstname")).click();
     driver.findElement(By.name("firstname")).click();
     driver.findElement(By.name("firstname")).clear();
-    driver.findElement(By.name("firstname")).sendKeys("Cont1");
+    driver.findElement(By.name("firstname")).sendKeys(name);
     driver.findElement(By.name("middlename")).click();
     driver.findElement(By.name("middlename")).clear();
-    driver.findElement(By.name("middlename")).sendKeys("Cont2");
+    driver.findElement(By.name("middlename")).sendKeys(patrname);
     driver.findElement(By.name("lastname")).click();
     driver.findElement(By.name("lastname")).clear();
-    driver.findElement(By.name("lastname")).sendKeys("Cont3");
+    driver.findElement(By.name("lastname")).sendKeys(lastname);
     driver.findElement(By.name("nickname")).click();
     driver.findElement(By.name("nickname")).clear();
-    driver.findElement(By.name("nickname")).sendKeys("Cont");
+    driver.findElement(By.name("nickname")).sendKeys(nickname);
     driver.findElement(By.name("title")).click();
     driver.findElement(By.name("title")).clear();
-    driver.findElement(By.name("title")).sendKeys("COMPANY");
+    driver.findElement(By.name("title")).sendKeys(title);
     driver.findElement(By.name("company")).click();
     driver.findElement(By.name("company")).clear();
-    driver.findElement(By.name("company")).sendKeys("COMPANY");
+    driver.findElement(By.name("company")).sendKeys(company);
     driver.findElement(By.name("address")).click();
     driver.findElement(By.name("address")).clear();
-    driver.findElement(By.name("address")).sendKeys("Novosibirsk");
+    driver.findElement(By.name("address")).sendKeys(city);
     driver.findElement(By.name("theform")).click();
     driver.findElement(By.name("home")).click();
     driver.findElement(By.name("home")).clear();
-    driver.findElement(By.name("home")).sendKeys("nope");
+    driver.findElement(By.name("home")).sendKeys(home);
     driver.findElement(By.name("mobile")).click();
     driver.findElement(By.name("mobile")).clear();
-    driver.findElement(By.name("mobile")).sendKeys("999999999");
+    driver.findElement(By.name("mobile")).sendKeys(mobphone);
     driver.findElement(By.name("work")).click();
     driver.findElement(By.name("work")).clear();
-    driver.findElement(By.name("work")).sendKeys("tester");
+    driver.findElement(By.name("work")).sendKeys(position);
     driver.findElement(By.name("fax")).click();
     driver.findElement(By.name("fax")).clear();
-    driver.findElement(By.name("fax")).sendKeys("999999991");
+    driver.findElement(By.name("fax")).sendKeys(fax);
     driver.findElement(By.name("email")).click();
     driver.findElement(By.name("email")).clear();
-    driver.findElement(By.name("email")).sendKeys("neveragain@gmail.com");
+    driver.findElement(By.name("email")).sendKeys(email1);
     driver.findElement(By.name("theform")).click();
     driver.findElement(By.name("email")).click();
     driver.findElement(By.name("email2")).click();
     driver.findElement(By.name("email2")).clear();
-    driver.findElement(By.name("email2")).sendKeys("neveragain@gmail.com");
+    driver.findElement(By.name("email2")).sendKeys(email2);
     driver.findElement(By.name("email3")).click();
     driver.findElement(By.name("email3")).clear();
-    driver.findElement(By.name("email3")).sendKeys("neveragain@gmail.com");
+    driver.findElement(By.name("email3")).sendKeys(email3);
     driver.findElement(By.name("theform")).click();
   }
 
@@ -96,15 +100,15 @@ public class ContactCreationTest {
     driver.findElement(By.id("content")).click();
   }
 
-  private void login() {
+  private void login(String login, String password) {
     driver.get("http://localhost/addressbook/");
     driver.findElement(By.name("user")).click();
     driver.findElement(By.name("user")).clear();
-    driver.findElement(By.name("user")).sendKeys("admin");
+    driver.findElement(By.name("user")).sendKeys(login);
     driver.findElement(By.id("LoginForm")).click();
     driver.findElement(By.name("pass")).click();
     driver.findElement(By.name("pass")).clear();
-    driver.findElement(By.name("pass")).sendKeys("secret");
+    driver.findElement(By.name("pass")).sendKeys(password);
     driver.findElement(By.xpath("//input[@value='Login']")).click();
   }
 
