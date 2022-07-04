@@ -3,12 +3,15 @@ package appmanager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import model.ContactData;
-import model.GroupData;
 
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
     public WebDriver driver;
+
+    private SessionHelper sessionHelper;
+    private  NavigationHelper navigationHelper;
+    private GroupHelper groupHelper;
     private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
@@ -18,46 +21,13 @@ public class ApplicationManager {
         driver = new FirefoxDriver();
         baseUrl = "https://www.google.com/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        login ("admin","secret");
+        groupHelper = new GroupHelper(driver);
+        navigationHelper = new NavigationHelper(driver);
+        sessionHelper = new SessionHelper(driver);
+        sessionHelper.login ("admin","secret");
     }
 
-    public void login(String username, String password) {
-        driver.get("http://localhost/addressbook/group.php");
-        driver.findElement(By.name("user")).click();
-        driver.findElement(By.name("user")).clear();
-        driver.findElement(By.name("user")).sendKeys(username);
-        driver.findElement(By.name("pass")).click();
-        driver.findElement(By.name("pass")).clear();
-        driver.findElement(By.name("pass")).sendKeys(password);
-        driver.findElement(By.id("LoginForm")).submit();
 
-    }
-
-    public void returntoGroupPage() {
-        driver.findElement(By.linkText("group page")).click();
-    }
-
-    public void submitGroupPage() {
-        driver.findElement(By.name("submit")).click();
-    }
-
-    public void fillGroupPage(GroupData groupData) {
-        driver.findElement(By.xpath("//div[@id='content']/form/input[4]")).click();
-        driver.findElement(By.name("group_name")).click();
-        driver.findElement(By.name("group_name")).click();
-        driver.findElement(By.name("group_name")).clear();
-        driver.findElement(By.name("group_name")).sendKeys(groupData.name());
-        driver.findElement(By.name("group_header")).click();
-        driver.findElement(By.name("group_header")).clear();
-        driver.findElement(By.name("group_header")).sendKeys(groupData.header());
-        driver.findElement(By.name("group_footer")).click();
-        driver.findElement(By.name("group_footer")).clear();
-        driver.findElement(By.name("group_footer")).sendKeys(groupData.footer());
-    }
-
-    public void gotoGroupPage() {
-    driver.findElement(By.linkText("groups")).click();
-  }
 
     public void stop() {
         driver.quit();
@@ -94,14 +64,6 @@ public class ApplicationManager {
         } finally {
             acceptNextAlert = true;
         }
-    }
-
-    public void deleteSelectedGroup() {
-      driver.findElement(By.name("delete")).click();
-    }
-
-    public void selectGroup() {
-      driver.findElement(By.name("selected[]")).click();
     }
 
     public void returntoContact() {
@@ -172,5 +134,13 @@ public class ApplicationManager {
 
     public void gotoContacts() {
       driver.findElement(By.id("content")).click();
+    }
+
+    public GroupHelper getGroupHelper() {
+        return groupHelper;
+    }
+
+    public NavigationHelper getNavigationHelper() {
+        return navigationHelper;
     }
 }
