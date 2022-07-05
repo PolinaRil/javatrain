@@ -23,6 +23,7 @@ public class ApplicationManager {
         driver = new FirefoxDriver();
         baseUrl = "https://www.google.com/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.get("http://localhost/addressbook/group.php");
         groupHelper = new GroupHelper(driver);
         contactHelper = new ContactHelper(driver);
         navigationHelper = new NavigationHelper(driver);
