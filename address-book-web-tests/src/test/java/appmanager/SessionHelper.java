@@ -7,7 +7,6 @@ public class SessionHelper {
     public WebDriver driver;
     public SessionHelper(WebDriver driver) {
         this.driver = driver;
-
     }
     public void login(String username, String password) {
         driver.get("http://localhost/addressbook/group.php");
