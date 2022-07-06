@@ -18,7 +18,7 @@ public class ContactHelper {
     }
 
     public void fillNewContact(String name, String patrname, String lastname, String nickname, String title, String company, String city, String home) {
-        fillNewContact(new ContactData(name, patrname, lastname, nickname, title, company, city, home, "999999999", "tester", "999999991", "neveragain1@gmail.com", "neveragain2@gmail.com", "neveragain2@gmail.com"));
+        fillNewContact(new ContactData(name, patrname, lastname, nickname, title, company, city, home, "999999999", "tester", "999999991"));
     }
 
     public void fillNewContact(ContactData contactData) {
@@ -44,7 +44,7 @@ public class ContactHelper {
         driver.findElement(By.name("address")).click();
         driver.findElement(By.name("address")).clear();
         driver.findElement(By.name("address")).sendKeys(contactData.city());
-        driver.findElement(By.name("theform")).click();
+       // driver.findElement(By.name("theform")).click();
         driver.findElement(By.name("home")).click();
         driver.findElement(By.name("home")).clear();
         driver.findElement(By.name("home")).sendKeys(contactData.home());
@@ -59,23 +59,32 @@ public class ContactHelper {
         driver.findElement(By.name("fax")).sendKeys(contactData.fax());
         driver.findElement(By.name("email")).click();
         driver.findElement(By.name("email")).clear();
-        driver.findElement(By.name("email")).sendKeys(contactData.email1());
-        driver.findElement(By.name("theform")).click();
-        driver.findElement(By.name("email")).click();
-        driver.findElement(By.name("email2")).click();
-        driver.findElement(By.name("email2")).clear();
-        driver.findElement(By.name("email2")).sendKeys(contactData.email2());
-        driver.findElement(By.name("email3")).click();
-        driver.findElement(By.name("email3")).clear();
-        driver.findElement(By.name("email3")).sendKeys(contactData.email3());
-        driver.findElement(By.name("theform")).click();
+      //  driver.findElement(By.name("email")).sendKeys(contactData.email1());
+      //  driver.findElement(By.name("theform")).click();
+     //   driver.findElement(By.name("email")).click();
+     //   driver.findElement(By.name("email2")).click();
+     //   driver.findElement(By.name("email2")).clear();
+      //  driver.findElement(By.name("email2")).sendKeys(contactData.email2());
+      //  driver.findElement(By.name("email3")).click();
+      //  driver.findElement(By.name("email3")).clear();
+     //   driver.findElement(By.name("email3")).sendKeys(contactData.email3());
+        //  driver.findElement(By.name("theform")).click();
     }
 
     public void createnewContact() {
         driver.findElement(By.linkText("add new")).click();
     }
 
-  //  public void gotoContacts() {
+    public void initContactModification() { driver.findElement(By.cssSelector("img[title=\"Edit\"]")).click();
+    }
+
+    public void submitContactModification() { driver.findElement(By.name("update")).click();
+    }
+
+    public void submitContactCreation() { driver.findElement(By.name("submit")).click();
+    }
+
+    //  public void gotoContacts() {
   //      driver.findElement(By.id("content")).click();
  //   }
 

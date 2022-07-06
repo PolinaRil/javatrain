@@ -10,8 +10,8 @@ public class ContactCreationTest extends TestBase {
   public void testContactCreation() throws Exception {
     app.getContactHelper().returntoContact();
     app.getContactHelper().createnewContact();
-    app.getContactHelper().fillNewContact(new ContactData("Cont2", "Cont3", "Cont", "title", "COMPANY", "Novosibirsk", "nope", "nope", "999999999", "tester", "999999991", "neveragain1@gmail.com", "neveragain2@gmail.com", "neveragain2@gmail.com"));
-    app.getContactHelper().submitnewContact();
+    app.getContactHelper().fillNewContact(new ContactData("Cont2", "Cont3", "Cont", "title", "COMPANY", "Novosibirsk", "nope", "nope", "999999999", "tester", "999999991"));
+    app.getContactHelper().submitContactCreation();
     app.getContactHelper().returntoContact();
   }
 
