@@ -19,7 +19,7 @@ public class GroupHelper extends HelperBase {
     }
 
     public void fillGroupPage(GroupData groupData) {
-        driver.findElement(By.xpath("//div[@id='content']/form/input[4]")).click();
+       // driver.findElement(By.xpath("//div[@id='content']/form/input[4]")).click();
         driver.findElement(By.name("group_name")).click();
         type(By.name("group_name"), groupData.name());
         type(By.name("group_header"), groupData.header());
@@ -31,5 +31,13 @@ public class GroupHelper extends HelperBase {
 
     public void selectGroup() {
       click(By.name("selected[]"));
+    }
+
+    public void editGroup() {click(By.name ("edit"));}
+
+    public void submitGroupModification() { click(By.name ("update"));
+    }
+
+    public void initGroupModification() { click(By.name ("new"));
     }
 }
