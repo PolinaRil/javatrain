@@ -1,12 +1,13 @@
 package ru.javatrain.addressbook;
 
 import appmanager.ApplicationManager;
+import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager();
+    protected final ApplicationManager app = new ApplicationManager(BrowserType.IE);
 
     @BeforeClass(alwaysRun = true)
     public void setUp() throws Exception {

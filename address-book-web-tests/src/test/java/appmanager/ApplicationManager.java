@@ -1,8 +1,11 @@
 package appmanager;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import model.ContactData;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.BrowserType;
 
 import java.util.concurrent.TimeUnit;
 
@@ -14,14 +17,26 @@ public class ApplicationManager {
     private GroupHelper groupHelper;
     private ContactHelper contactHelper;
 
-    private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
+    private String browser;
+
+    public ApplicationManager(String browser) {
+        this.browser = browser;
+    }
 
     public void init() {
-        System.setProperty("webdriver.gecko.driver", "C:\\Users\\selecty\\Sites\\geckodriver\\geckodriver.exe");
-        driver = new FirefoxDriver();
-        baseUrl = "https://www.google.com/";
+        if (browser == BrowserType.FIREFOX) {
+            System.setProperty("webdriver.gecko.driver", "C:\\Users\\selecty\\Sites\\geckodriver\\geckodriver.exe");
+            driver = new FirefoxDriver();
+        } else if (browser == BrowserType.CHROME) {
+            System.setProperty("webdriver.chrome.driver", "C:\\Users\\selecty\\Sites\\geckodriver\\chromedriver.exe");
+            driver = new ChromeDriver();
+        } else  if (browser == BrowserType.IE) {
+            System.setProperty("webdriver.ie.driver", "C:\\Users\\selecty\\Sites\\geckodriver\\IEDriverServer.exe");
+            driver = new InternetExplorerDriver();
+        }
+        //System.setProperty("webdriver.gecko.driver", "C:\\Users\\selecty\\Sites\\geckodriver\\geckodriver.exe");
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.get("http://localhost/addressbook/group.php");
         groupHelper = new GroupHelper(driver);
@@ -30,8 +45,6 @@ public class ApplicationManager {
         sessionHelper = new SessionHelper(driver);
         sessionHelper.login ("admin","secret");
     }
-
-
 
     public void stop() {
         driver.quit();
