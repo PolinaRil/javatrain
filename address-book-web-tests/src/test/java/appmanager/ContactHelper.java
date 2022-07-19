@@ -4,10 +4,10 @@ import model.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class ContactHelper {
+public class ContactHelper extends HelperBase {
     public WebDriver driver;
-    public ContactHelper(WebDriver driver) {
-        this.driver = driver;
+    public ContactHelper(WebDriver driver)  {
+        super(driver);
     }
     public void returntoContact() {
         driver.findElement(By.linkText("home")).click();
@@ -59,29 +59,19 @@ public class ContactHelper {
         driver.findElement(By.name("fax")).sendKeys(contactData.fax());
         driver.findElement(By.name("email")).click();
         driver.findElement(By.name("email")).clear();
-      //  driver.findElement(By.name("email")).sendKeys(contactData.email1());
-      //  driver.findElement(By.name("theform")).click();
-     //   driver.findElement(By.name("email")).click();
-     //   driver.findElement(By.name("email2")).click();
-     //   driver.findElement(By.name("email2")).clear();
-      //  driver.findElement(By.name("email2")).sendKeys(contactData.email2());
-      //  driver.findElement(By.name("email3")).click();
-      //  driver.findElement(By.name("email3")).clear();
-     //   driver.findElement(By.name("email3")).sendKeys(contactData.email3());
-        //  driver.findElement(By.name("theform")).click();
     }
 
     public void createnewContact() {
-        driver.findElement(By.linkText("add new")).click();
+        click(By.linkText("add new"));
     }
 
-    public void initContactModification() { driver.findElement(By.cssSelector("img[title=\"Edit\"]")).click();
+    public void initContactModification() { click(By.cssSelector("img[title=\"Edit\"]"));
     }
 
-    public void submitContactModification() { driver.findElement(By.name("update")).click();
+    public void submitContactModification() {click(By.name("update"));
     }
 
-    public void submitContactCreation() { driver.findElement(By.name("submit")).click();
+    public void submitContactCreation() { click(By.name("submit"));
     }
 
     //  public void gotoContacts() {
