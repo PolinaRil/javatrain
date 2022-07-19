@@ -26,13 +26,13 @@ public class ApplicationManager {
     }
 
     public void init() {
-        if (browser == BrowserType.FIREFOX) {
+        if (browser.equals(BrowserType.FIREFOX)) {
             System.setProperty("webdriver.gecko.driver", "C:\\Users\\selecty\\Sites\\geckodriver\\geckodriver.exe");
             driver = new FirefoxDriver();
-        } else if (browser == BrowserType.CHROME) {
+        } else if (browser.equals(BrowserType.CHROME)) {
             System.setProperty("webdriver.chrome.driver", "C:\\Users\\selecty\\Sites\\geckodriver\\chromedriver.exe");
             driver = new ChromeDriver();
-        } else  if (browser == BrowserType.IE) {
+        } else  if (browser.equals(BrowserType.IE)) {
             System.setProperty("webdriver.ie.driver", "C:\\Users\\selecty\\Sites\\geckodriver\\IEDriverServer.exe");
             driver = new InternetExplorerDriver();
         }
@@ -88,11 +88,9 @@ public class ApplicationManager {
     public GroupHelper getGroupHelper() {
         return groupHelper;
     }
-
     public NavigationHelper getNavigationHelper() {
         return navigationHelper;
     }
     public ContactHelper getContactHelper() {return contactHelper; }
-
     public SessionHelper getSessionHelper() {return sessionHelper;}
 }
