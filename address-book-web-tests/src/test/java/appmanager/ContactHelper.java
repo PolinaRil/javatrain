@@ -5,22 +5,18 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class ContactHelper extends HelperBase {
-    public WebDriver driver;
-    public ContactHelper(WebDriver driver)  {
+    public ContactHelper(WebDriver driver) {
         super(driver);
     }
-    public void returntoContact() {
+    public void returnToContact() {
         driver.findElement(By.linkText("home")).click();
     }
-
-    public void submitnewContact() {
+    public void submitNewContact() {
         driver.findElement(By.name("submit")).click();
     }
-
     public void fillNewContact(String name, String patrname, String lastname, String nickname, String title, String company, String city, String home) {
         fillNewContact(new ContactData(name, patrname, lastname, nickname, title, company, city, home, "999999999", "tester", "999999991"));
     }
-
     public void fillNewContact(ContactData contactData) {
         driver.findElement(By.name("firstname")).click();
         driver.findElement(By.name("firstname")).click();
@@ -44,7 +40,7 @@ public class ContactHelper extends HelperBase {
         driver.findElement(By.name("address")).click();
         driver.findElement(By.name("address")).clear();
         driver.findElement(By.name("address")).sendKeys(contactData.city());
-       // driver.findElement(By.name("theform")).click();
+        // driver.findElement(By.name("theform")).click();
         driver.findElement(By.name("home")).click();
         driver.findElement(By.name("home")).clear();
         driver.findElement(By.name("home")).sendKeys(contactData.home());
@@ -61,21 +57,19 @@ public class ContactHelper extends HelperBase {
         driver.findElement(By.name("email")).clear();
     }
 
-    public void createnewContact() {
+    public void createNewContact() {
         click(By.linkText("add new"));
     }
-
-    public void initContactModification() { click(By.cssSelector("img[title=\"Edit\"]"));
+    public void initContactModification() {
+        click(By.cssSelector("img[title=\"Edit\"]"));
     }
-
-    public void submitContactModification() {click(By.name("update"));
+    public void submitContactModification() {
+        click(By.name("update"));
     }
-
-    public void submitContactCreation() { click(By.name("submit"));
+    public void submitContactCreation() {
+        click(By.name("submit"));
     }
-
     //  public void gotoContacts() {
-  //      driver.findElement(By.id("content")).click();
- //   }
-
+    //      driver.findElement(By.id("content")).click();
+    //   }
 }

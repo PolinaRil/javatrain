@@ -7,7 +7,7 @@ public class HelperBase {
     public WebDriver driver;
 
     public HelperBase(WebDriver driver) {
-        this.driver=driver;
+        this.driver = driver;
     }
 
     protected void click(By locator) {
@@ -28,6 +28,4 @@ public class HelperBase {
             }
         }
     }
-
-
 }
