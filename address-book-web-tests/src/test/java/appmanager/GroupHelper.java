@@ -35,4 +35,8 @@ public class GroupHelper extends HelperBase {
     public void initGroupModification() {
         click(By.name ("new"));
     }
+
+    public int getGroupCount() {
+      return   driver.findElements(By.name("selected[]")).size();
+    }
 }

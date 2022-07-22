@@ -2,6 +2,7 @@ package tests;
 
 import model.ContactData;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.javatrain.addressbook.TestBase;
 
@@ -9,6 +10,10 @@ public class ContactDeleteTest extends TestBase {
   @Test
   public void testContactDelete() throws Exception {
     app.getContactHelper().returnToContact();
+
+    int before = app.getContactHelper().getContactCount();
+
+    System.out.println("before" + before);
 
     if (!app.isElementPresent(By.name("selected[]"))) {
       app.getContactHelper().createNewContact();
@@ -20,5 +25,11 @@ public class ContactDeleteTest extends TestBase {
     app.getGroupHelper().driver.findElement(By.name("selected[]")).click();
     app.getGroupHelper().driver.findElement(By.cssSelector("input[value=\"Delete\"]")).click();
     app.getGroupHelper().driver.switchTo().alert().accept();
+
+    int after = app.getContactHelper().getContactCount();
+
+    System.out.println("after" + after);
+
+    Assert.assertEquals(after, before - 1);
   }
 }
