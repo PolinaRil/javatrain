@@ -1,22 +1,31 @@
 package appmanager;
 
 import model.ContactData;
+import model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver driver) {
         super(driver);
     }
+
     public void returnToContact() {
         driver.findElement(By.linkText("home")).click();
     }
+
     public void submitNewContact() {
         driver.findElement(By.name("submit")).click();
     }
+
     public void fillNewContact(String name, String patrname, String lastname, String nickname, String title, String company, String city, String home) {
         fillNewContact(new ContactData(name, patrname, lastname, nickname, title, company, city, home, "999999999", "tester", "999999991"));
     }
+
     public void fillNewContact(ContactData contactData) {
         driver.findElement(By.name("firstname")).click();
         driver.findElement(By.name("firstname")).click();
@@ -60,12 +69,15 @@ public class ContactHelper extends HelperBase {
     public void createNewContact() {
         click(By.linkText("add new"));
     }
+
     public void initContactModification() {
         click(By.cssSelector("img[title=\"Edit\"]"));
     }
+
     public void submitContactModification() {
         click(By.name("update"));
     }
+
     public void submitContactCreation() {
         click(By.name("submit"));
     }
@@ -75,5 +87,40 @@ public class ContactHelper extends HelperBase {
 
     public int getContactCount() {
         return driver.findElements(By.name("selected[]")).size();
+    }
+
+
+    public void selectContact() {
+        driver.findElement(By.name("selected[]")).click();
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        List<WebElement> elements = driver.findElements(By.cssSelector("[name=\"entry\"]"));
+
+        for (WebElement element : elements) {
+            List<WebElement> attributes = element.findElements(By.tagName("td"));
+
+            String lastName = attributes.get(1).getText();
+            String firstName = attributes.get(2).getText();
+
+            ContactData contact = new ContactData(
+                    firstName,
+                    null,
+                    lastName,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+            );
+
+            contacts.add(contact);
+        }
+
+        return contacts;
     }
 }

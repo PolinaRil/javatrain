@@ -6,11 +6,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.javatrain.addressbook.TestBase;
 
+import java.util.List;
+
 public class GroupDeleteTest  extends TestBase {
     @Test
     public void testGroupDelete()  {
       app.getNavigationHelper().gotoGroupPage();
-        int before = app.getGroupHelper().getGroupCount();
 
       if (!app.isElementPresent(By.name("selected[]"))) {
           app.getGroupHelper().initGroupModification();
@@ -19,11 +20,12 @@ public class GroupDeleteTest  extends TestBase {
           app.getGroupHelper().returntoGroupPage();
       }
 
-      app.getGroupHelper().selectGroup(before-1);
+      List<GroupData> before = app.getGroupHelper().getGroupList();
+      app.getGroupHelper().selectGroup(before.size()-1);
       app.getGroupHelper().deleteSelectedGroup();
       app.getGroupHelper().returntoGroupPage();
-        int after = app.getGroupHelper().getGroupCount();
-        Assert.assertEquals(after, before - 1);
+      List<GroupData> after = app.getGroupHelper().getGroupList();
+        Assert.assertEquals(after.size(), before.size() - 1);
     }
 }
 

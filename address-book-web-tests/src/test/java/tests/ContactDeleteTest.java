@@ -6,14 +6,13 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.javatrain.addressbook.TestBase;
 
+import java.util.List;
+
 public class ContactDeleteTest extends TestBase {
   @Test
   public void testContactDelete() throws Exception {
     app.getContactHelper().returnToContact();
 
-    int before = app.getContactHelper().getContactCount();
-
-    System.out.println("before" + before);
 
     if (!app.isElementPresent(By.name("selected[]"))) {
       app.getContactHelper().createNewContact();
@@ -21,15 +20,15 @@ public class ContactDeleteTest extends TestBase {
       app.getContactHelper().submitContactCreation();
     }
 
+    List<ContactData> before = app.getContactHelper().getContactList();
+
     app.getGroupHelper().driver.findElement(By.name("selected[]"));
     app.getGroupHelper().driver.findElement(By.name("selected[]")).click();
     app.getGroupHelper().driver.findElement(By.cssSelector("input[value=\"Delete\"]")).click();
     app.getGroupHelper().driver.switchTo().alert().accept();
 
-    int after = app.getContactHelper().getContactCount();
+    List<ContactData> after = app.getContactHelper().getContactList();
 
-    System.out.println("after" + after);
-
-    Assert.assertEquals(after, before - 1);
+    Assert.assertEquals(after.size(), before.size() - 1);
   }
 }

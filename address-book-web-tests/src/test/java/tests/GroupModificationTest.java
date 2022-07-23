@@ -6,11 +6,12 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.javatrain.addressbook.TestBase;
 
+import java.util.List;
+
 public class GroupModificationTest extends TestBase {
     @Test
     public void testGroupModification() throws Exception {
         app.getNavigationHelper().gotoGroupPage();
-        int before = app.getGroupHelper().getGroupCount();
 
         if (!app.isElementPresent(By.name("selected[]"))) {
             app.getGroupHelper().initGroupModification();
@@ -19,13 +20,14 @@ public class GroupModificationTest extends TestBase {
             app.getGroupHelper().returntoGroupPage();
         }
 
-        app.getGroupHelper().selectGroup(before-1);
+        List<GroupData> before = app.getGroupHelper().getGroupList();
+        app.getGroupHelper().selectGroup(before.size()-1);
         app.getGroupHelper().editGroup();
         app.getGroupHelper().fillGroupPage(new GroupData("test1", "test7", "test3"));
         app.getGroupHelper().submitGroupModification();
         app.getGroupHelper().returntoGroupPage();
-        int after = app.getGroupHelper().getGroupCount();
-        Assert.assertEquals(after, before);
+        List<GroupData> after = app.getGroupHelper().getGroupList();
+        Assert.assertEquals(after.size(), before.size());
 
     }
 }
