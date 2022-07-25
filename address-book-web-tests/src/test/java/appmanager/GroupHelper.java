@@ -20,9 +20,9 @@ public class GroupHelper extends HelperBase {
     }
     public void fillGroupPage(GroupData groupData) {
         driver.findElement(By.name("group_name")).click();
-        type(By.name("group_name"), groupData.name());
-        type(By.name("group_header"), groupData.header());
-        type(By.name("group_footer"), groupData.footer());
+        type(By.name("group_name"), groupData.getName());
+        type(By.name("group_header"), groupData.getHeader());
+        type(By.name("group_footer"), groupData.getFooter());
     }
     public void deleteSelectedGroup() {
         click(By.name("delete"));
@@ -50,7 +50,8 @@ public class GroupHelper extends HelperBase {
 
         for (WebElement element: elements) {
             String name = element.getText();
-            GroupData group = new GroupData (name, null, null);
+            String id = element.findElement(By.tagName("input")).getAttribute("value");
+            GroupData group = new GroupData (id, name, null, null);
             groups.add(group);
         }
 
