@@ -20,14 +20,16 @@ public class ContactModificationTest extends TestBase {
         }
 
         List<ContactData> before = app.getContactHelper().getContactList();
+
         app.getContactHelper().selectContact();
-        //driver.findElement(By.name("selected[]"));
         app.getContactHelper().initContactModification();
         app.getContactHelper().fillNewContact(new ContactData("Cont2", "Cont3", "Cont", "title", "COMPANY", "UJJJH", "NSK", "NSK", "999999999", "1234", "999999991"));
         app.getContactHelper().submitContactModification();
-        app.getContactHelper().returnToContact();
+
+        // app.getContactHelper().returnToContact();
+
         List<ContactData> after = app.getContactHelper().getContactList();
+
         Assert.assertEquals(after.size(), before.size());
     }
-
 }

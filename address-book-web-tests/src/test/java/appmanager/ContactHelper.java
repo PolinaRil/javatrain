@@ -18,14 +18,6 @@ public class ContactHelper extends HelperBase {
         driver.findElement(By.linkText("home")).click();
     }
 
-    public void submitNewContact() {
-        driver.findElement(By.name("submit")).click();
-    }
-
-    public void fillNewContact(String name, String patrname, String lastname, String nickname, String title, String company, String city, String home) {
-        fillNewContact(new ContactData(name, patrname, lastname, nickname, title, company, city, home, "999999999", "tester", "999999991"));
-    }
-
     public void fillNewContact(ContactData contactData) {
         driver.findElement(By.name("firstname")).click();
         driver.findElement(By.name("firstname")).click();
@@ -65,7 +57,6 @@ public class ContactHelper extends HelperBase {
         driver.findElement(By.name("email")).click();
         driver.findElement(By.name("email")).clear();
     }
-
     public void createNewContact() {
         click(By.linkText("add new"));
     }
@@ -81,14 +72,10 @@ public class ContactHelper extends HelperBase {
     public void submitContactCreation() {
         click(By.name("submit"));
     }
-    //  public void gotoContacts() {
-    //      driver.findElement(By.id("content")).click();
-    //   }
 
     public int getContactCount() {
         return driver.findElements(By.name("selected[]")).size();
     }
-
 
     public void selectContact() {
         driver.findElement(By.name("selected[]")).click();

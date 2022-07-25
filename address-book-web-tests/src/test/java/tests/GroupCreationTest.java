@@ -8,7 +8,6 @@ import ru.javatrain.addressbook.TestBase;
 import java.util.List;
 
 public class GroupCreationTest extends TestBase {
-
     @Test
     public void testGroupCreation() throws Exception {
         app.getNavigationHelper().gotoGroupPage();
@@ -24,5 +23,4 @@ public class GroupCreationTest extends TestBase {
 
         Assert.assertEquals(after.size(), before.size() +1);
     }
-
 }

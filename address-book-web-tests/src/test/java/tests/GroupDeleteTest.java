@@ -21,11 +21,13 @@ public class GroupDeleteTest  extends TestBase {
       }
 
       List<GroupData> before = app.getGroupHelper().getGroupList();
+
       app.getGroupHelper().selectGroup(before.size()-1);
       app.getGroupHelper().deleteSelectedGroup();
       app.getGroupHelper().returntoGroupPage();
+
       List<GroupData> after = app.getGroupHelper().getGroupList();
-        Assert.assertEquals(after.size(), before.size() - 1);
+
+      Assert.assertEquals(after.size(), before.size() - 1);
     }
 }
-

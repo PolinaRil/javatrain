@@ -21,13 +21,15 @@ public class GroupModificationTest extends TestBase {
         }
 
         List<GroupData> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().selectGroup(before.size()-1);
+
+        app.getGroupHelper().selectGroup(before.size() - 1);
         app.getGroupHelper().editGroup();
         app.getGroupHelper().fillGroupPage(new GroupData("test1", "test7", "test3"));
         app.getGroupHelper().submitGroupModification();
         app.getGroupHelper().returntoGroupPage();
-        List<GroupData> after = app.getGroupHelper().getGroupList();
-        Assert.assertEquals(after.size(), before.size());
 
+        List<GroupData> after = app.getGroupHelper().getGroupList();
+
+        Assert.assertEquals(after.size(), before.size());
     }
 }
