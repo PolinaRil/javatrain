@@ -3,27 +3,32 @@ package model;
 import java.util.Objects;
 
 public class GroupData {
-private final String id;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
 private final String name;
 private final String header;
 private final String footer;
 
 
-    public  GroupData(String id, String name, String header, String footer){
+    public  GroupData(int id, String name, String header, String footer){
         this.id = id;
         this.name = name;
         this.header=header;
         this.footer = footer;
         }
 
+
     public  GroupData(String name, String header, String footer){
-        this.id = null;
+        this.id = 0;
         this.name = name;
         this.header=header;
         this.footer = footer;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -52,7 +57,7 @@ private final String footer;
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GroupData groupData = (GroupData) o;
-        return id.equals(groupData.id) && name.equals(groupData.name) && Objects.equals(header, groupData.header) && Objects.equals(footer, groupData.footer);
+        return id == groupData.id && Objects.equals(name, groupData.name);
     }
 
     @Override
