@@ -3,11 +3,10 @@ package model;
 import java.util.Objects;
 
 public class GroupData {
-
     private int id;
-private final String name;
-private final String header;
-private final String footer;
+    private final String name;
+    private final String header;
+    private final String footer;
 
 
     public  GroupData(int id, String name, String header, String footer){
@@ -15,7 +14,7 @@ private final String footer;
         this.name = name;
         this.header=header;
         this.footer = footer;
-        }
+    }
 
     public  GroupData(String name, String header, String footer){
         this.id = Integer.MAX_VALUE;
