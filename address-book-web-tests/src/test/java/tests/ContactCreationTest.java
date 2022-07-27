@@ -1,6 +1,5 @@
 package tests;
 
-import model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import model.ContactData;

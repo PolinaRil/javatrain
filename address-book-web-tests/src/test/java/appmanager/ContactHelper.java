@@ -1,7 +1,6 @@
 package appmanager;
 
 import model.ContactData;
-import model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -20,42 +19,17 @@ public class ContactHelper extends HelperBase {
 
     public void fillNewContact(ContactData contactData) {
         driver.findElement(By.name("firstname")).click();
-        driver.findElement(By.name("firstname")).click();
-        driver.findElement(By.name("firstname")).clear();
-        driver.findElement(By.name("firstname")).sendKeys(contactData.name());
-        driver.findElement(By.name("middlename")).click();
-        driver.findElement(By.name("middlename")).clear();
-        driver.findElement(By.name("middlename")).sendKeys(contactData.patrname());
-        driver.findElement(By.name("lastname")).click();
-        driver.findElement(By.name("lastname")).clear();
-        driver.findElement(By.name("lastname")).sendKeys(contactData.lastname());
-        driver.findElement(By.name("nickname")).click();
-        driver.findElement(By.name("nickname")).clear();
-        driver.findElement(By.name("nickname")).sendKeys(contactData.nickname());
-        driver.findElement(By.name("title")).click();
-        driver.findElement(By.name("title")).clear();
-        driver.findElement(By.name("title")).sendKeys(contactData.title());
-        driver.findElement(By.name("company")).click();
-        driver.findElement(By.name("company")).clear();
-        driver.findElement(By.name("company")).sendKeys(contactData.company());
-        driver.findElement(By.name("address")).click();
-        driver.findElement(By.name("address")).clear();
-        driver.findElement(By.name("address")).sendKeys(contactData.city());
-        // driver.findElement(By.name("theform")).click();
-        driver.findElement(By.name("home")).click();
-        driver.findElement(By.name("home")).clear();
-        driver.findElement(By.name("home")).sendKeys(contactData.home());
-        driver.findElement(By.name("mobile")).click();
-        driver.findElement(By.name("mobile")).clear();
-        driver.findElement(By.name("mobile")).sendKeys(contactData.mobphone());
-        driver.findElement(By.name("work")).click();
-        driver.findElement(By.name("work")).clear();
-        driver.findElement(By.name("work")).sendKeys(contactData.position());
-        driver.findElement(By.name("fax")).click();
-        driver.findElement(By.name("fax")).clear();
-        driver.findElement(By.name("fax")).sendKeys(contactData.fax());
-        driver.findElement(By.name("email")).click();
-        driver.findElement(By.name("email")).clear();
+        type(By.name("firstname"), contactData.getName());
+        type(By.name("middlename"), contactData.getPatrname());
+        type(By.name("lastname"), contactData.getLastname());
+        type(By.name("nickname"), contactData.getNickname());
+        type(By.name("title"), contactData.getTitle());
+        type(By.name("company"), contactData.getCompany());
+        type(By.name("address"), contactData.getCity());
+        type(By.name("home"), contactData.getHome());
+        type(By.name("mobile"),contactData. getMobphone());
+        type(By.name("work"), contactData.getPosition());
+        type(By.name("fax"), contactData.getFax());
     }
     public void createNewContact() {
         click(By.linkText("add new"));
