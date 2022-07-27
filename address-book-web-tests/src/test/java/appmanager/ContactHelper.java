@@ -51,8 +51,8 @@ public class ContactHelper extends HelperBase {
         return driver.findElements(By.name("selected[]")).size();
     }
 
-    public void selectContact() {
-        driver.findElement(By.name("selected[]")).click();
+    public void selectContact(int index) {
+        driver.findElements(By.name("selected[]")).get(index).click();
     }
 
     public List<ContactData> getContactList() {
@@ -65,7 +65,9 @@ public class ContactHelper extends HelperBase {
             String lastName = attributes.get(1).getText();
             String firstName = attributes.get(2).getText();
 
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             ContactData contact = new ContactData(
+                    id,
                     firstName,
                     null,
                     lastName,
@@ -84,4 +86,5 @@ public class ContactHelper extends HelperBase {
 
         return contacts;
     }
+
 }

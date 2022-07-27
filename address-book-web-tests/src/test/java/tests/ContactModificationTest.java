@@ -1,11 +1,13 @@
 package tests;
 
 import model.ContactData;
+import model.GroupData;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.javatrain.addressbook.TestBase;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class ContactModificationTest extends TestBase {
@@ -21,9 +23,12 @@ public class ContactModificationTest extends TestBase {
 
         List<ContactData> before = app.getContactHelper().getContactList();
 
-        app.getContactHelper().selectContact();
+        app.getContactHelper().selectContact(before.size() - 1);
         app.getContactHelper().initContactModification();
-        app.getContactHelper().fillNewContact(new ContactData("Cont2", "Cont3", "Cont", "title", "COMPANY", "UJJJH", "NSK", "NSK", "999999999", "1234", "999999991"));
+
+        ContactData contact = new ContactData("Cont2", "Cont3", "Cont", "title", "COMPANY", "Novosibirsk", "nope", "nope", "999999999", "tester", "999999991");
+
+        app.getContactHelper().fillNewContact(contact);
         app.getContactHelper().submitContactModification();
 
         // app.getContactHelper().returnToContact();
@@ -31,5 +36,14 @@ public class ContactModificationTest extends TestBase {
         List<ContactData> after = app.getContactHelper().getContactList();
 
         Assert.assertEquals(after.size(), before.size());
+
+        before.remove(before.size() - 1);
+        before.add(contact);
+
+        Comparator<? super ContactData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
+        before.sort(byId);
+        after.sort(byId);
+
+        Assert.assertEquals(before, after);
     }
 }
