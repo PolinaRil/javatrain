@@ -18,7 +18,7 @@ public class GroupHelper extends HelperBase {
     public void submitGroupPage() {
         click(By.name("submit"));
     }
-    public void fillGroupPage(GroupData groupData) {
+    public void create(GroupData groupData) {
         driver.findElement(By.name("group_name")).click();
         type(By.name("group_name"), groupData.getName());
         type(By.name("group_header"), groupData.getHeader());
@@ -26,7 +26,7 @@ public class GroupHelper extends HelperBase {
     }
 
     public void modifyGroup(int index, GroupData group) {
-       fillGroupPage(group);
+       create(group);
        submitGroupModification();
        returntoGroupPage();
     }
@@ -50,7 +50,7 @@ public class GroupHelper extends HelperBase {
       return   driver.findElements(By.name("selected[]")).size();
     }
 
-    public List<GroupData> getGroupList() {
+    public List<GroupData> list() {
         List<GroupData> groups = new ArrayList<GroupData>();
         List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
 

@@ -8,35 +8,34 @@ import org.testng.annotations.Test;
 import ru.javatrain.addressbook.TestBase;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class GroupModificationTest extends TestBase {
 
     @BeforeTest
     public void ensurePreconditions() {
-        app.getNavigationHelper().gotoGroupPage();
+        app.goTo().groupPage();
 
-        if (!app.isElementPresent(By.name("selected[]"))) {
-            app.getGroupHelper().initGroupModification();
-            app.getGroupHelper().fillGroupPage(new GroupData("test1", null, null));
-            app.getGroupHelper().submitGroupPage();
-            app.getGroupHelper().returntoGroupPage();
+        if (app.group().list().size() == 0) {
+            app.group().initGroupModification();
+            app.group().create(new GroupData("test1", null, null));
+            app.group().submitGroupPage();
+            app.group().returntoGroupPage();
         }
     }
     @Test
     public void testGroupModification() throws Exception {
-        List<GroupData> before = app.getGroupHelper().getGroupList();
+        List<GroupData> before = app.group().list();
 
         int index = before.size() - 1;
-        app.getGroupHelper().selectGroup(index);
-        app.getGroupHelper().editGroup();
+        app.group().selectGroup(index);
+        app.group().editGroup();
 
         GroupData group = new GroupData(before.get(index).getId(),"test1", null, null);
 
-        app.getGroupHelper().modifyGroup(index, group);
+        app.group().modifyGroup(index, group);
 
-        List<GroupData> after = app.getGroupHelper().getGroupList();
+        List<GroupData> after = app.group().list();
 
         Assert.assertEquals(after.size(), before.size());
 

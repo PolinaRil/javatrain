@@ -6,23 +6,22 @@ import model.GroupData;
 import ru.javatrain.addressbook.TestBase;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class GroupCreationTest extends TestBase {
     @Test
     public void testGroupCreation() throws Exception {
-        app.getNavigationHelper().gotoGroupPage();
+        app.goTo().groupPage();
 
-        List<GroupData> before = app.getGroupHelper().getGroupList();
+        List<GroupData> before = app.group().list();
 
-        app.getGroupHelper().initGroupModification();
+        app.group().initGroupModification();
         GroupData group = new GroupData("test2", null, null);
-        app.getGroupHelper().fillGroupPage(group);
-        app.getGroupHelper().submitGroupPage();
-        app.getGroupHelper().returntoGroupPage();
+        app.group().create(group);
+        app.group().submitGroupPage();
+        app.group().returntoGroupPage();
 
-        List<GroupData> after = app.getGroupHelper().getGroupList();
+        List<GroupData> after = app.group().list();
 
         Assert.assertEquals(after.size(), before.size() +1);
 

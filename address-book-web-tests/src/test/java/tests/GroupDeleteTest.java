@@ -13,33 +13,33 @@ public class GroupDeleteTest  extends TestBase {
 
     @BeforeTest
     public void ensurePreconditions() {
-        app.getNavigationHelper().gotoGroupPage();
+        app.goTo().groupPage();
 
-        if (!app.isElementPresent(By.name("selected[]"))) {
-            app.getGroupHelper().initGroupModification();
-            app.getGroupHelper().fillGroupPage(new GroupData("test1", null, null));
-            app.getGroupHelper().submitGroupPage();
-            app.getGroupHelper().returntoGroupPage();
+        if (app.group().list().size() == 0) {
+            app.group().initGroupModification();
+            app.group().create(new GroupData("test1", null, null));
+            app.group().submitGroupPage();
+            app.group().returntoGroupPage();
         }
     }
     @Test
     public void testGroupDelete()  {
-      app.getNavigationHelper().gotoGroupPage();
+      app.goTo().groupPage();
 
       if (!app.isElementPresent(By.name("selected[]"))) {
-          app.getGroupHelper().initGroupModification();
-          app.getGroupHelper().fillGroupPage(new GroupData("test1", null, null));
-          app.getGroupHelper().submitGroupPage();
-          app.getGroupHelper().returntoGroupPage();
+          app.group().initGroupModification();
+          app.group().create(new GroupData("test1", null, null));
+          app.group().submitGroupPage();
+          app.group().returntoGroupPage();
       }
 
-      List<GroupData> before = app.getGroupHelper().getGroupList();
+      List<GroupData> before = app.group().list();
 
-      app.getGroupHelper().selectGroup(before.size()-1);
-      app.getGroupHelper().deleteSelectedGroup();
-      app.getGroupHelper().returntoGroupPage();
+      app.group().selectGroup(before.size()-1);
+      app.group().deleteSelectedGroup();
+      app.group().returntoGroupPage();
 
-      List<GroupData> after = app.getGroupHelper().getGroupList();
+      List<GroupData> after = app.group().list();
 
       Assert.assertEquals(after.size(), before.size() - 1);
     }
