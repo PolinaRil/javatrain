@@ -3,6 +3,7 @@ package tests;
 import model.GroupData;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ru.javatrain.addressbook.TestBase;
 
@@ -11,8 +12,9 @@ import java.util.HashSet;
 import java.util.List;
 
 public class GroupModificationTest extends TestBase {
-    @Test
-    public void testGroupModification() throws Exception {
+
+    @BeforeTest
+    public void ensurePreconditions() {
         app.getNavigationHelper().gotoGroupPage();
 
         if (!app.isElementPresent(By.name("selected[]"))) {
@@ -21,23 +23,24 @@ public class GroupModificationTest extends TestBase {
             app.getGroupHelper().submitGroupPage();
             app.getGroupHelper().returntoGroupPage();
         }
-
+    }
+    @Test
+    public void testGroupModification() throws Exception {
         List<GroupData> before = app.getGroupHelper().getGroupList();
 
-        app.getGroupHelper().selectGroup(before.size() - 1);
+        int index = before.size() - 1;
+        app.getGroupHelper().selectGroup(index);
         app.getGroupHelper().editGroup();
 
-        GroupData group = new GroupData(before.get(before.size() - 1).getId(),"test1", null, null);
+        GroupData group = new GroupData(before.get(index).getId(),"test1", null, null);
 
-        app.getGroupHelper().fillGroupPage(group);
-        app.getGroupHelper().submitGroupModification();
-        app.getGroupHelper().returntoGroupPage();
+        app.getGroupHelper().modifyGroup(index, group);
 
         List<GroupData> after = app.getGroupHelper().getGroupList();
 
         Assert.assertEquals(after.size(), before.size());
 
-        before.remove(before.size() - 1);
+        before.remove(index);
         before.add(group);
 
         Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
@@ -46,4 +49,5 @@ public class GroupModificationTest extends TestBase {
 
         Assert.assertEquals(before, after);
     }
+
 }

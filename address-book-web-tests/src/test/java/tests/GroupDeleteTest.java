@@ -3,12 +3,25 @@ package tests;
 import model.GroupData;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ru.javatrain.addressbook.TestBase;
 
 import java.util.List;
 
 public class GroupDeleteTest  extends TestBase {
+
+    @BeforeTest
+    public void ensurePreconditions() {
+        app.getNavigationHelper().gotoGroupPage();
+
+        if (!app.isElementPresent(By.name("selected[]"))) {
+            app.getGroupHelper().initGroupModification();
+            app.getGroupHelper().fillGroupPage(new GroupData("test1", null, null));
+            app.getGroupHelper().submitGroupPage();
+            app.getGroupHelper().returntoGroupPage();
+        }
+    }
     @Test
     public void testGroupDelete()  {
       app.getNavigationHelper().gotoGroupPage();

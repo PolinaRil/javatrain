@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class ContactDeleteTest extends TestBase {
-  @Test
+  @Test (enabled = false)
   public void testContactDelete() throws Exception {
     app.getContactHelper().returnToContact();
 

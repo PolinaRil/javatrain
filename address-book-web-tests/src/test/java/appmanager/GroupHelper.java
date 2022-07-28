@@ -24,6 +24,12 @@ public class GroupHelper extends HelperBase {
         type(By.name("group_header"), groupData.getHeader());
         type(By.name("group_footer"), groupData.getFooter());
     }
+
+    public void modifyGroup(int index, GroupData group) {
+       fillGroupPage(group);
+       submitGroupModification();
+       returntoGroupPage();
+    }
     public void deleteSelectedGroup() {
         click(By.name("delete"));
     }
