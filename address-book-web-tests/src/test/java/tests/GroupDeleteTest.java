@@ -17,7 +17,7 @@ public class GroupDeleteTest  extends TestBase {
 
         if (app.group().list().size() == 0) {
             app.group().initGroupModification();
-            app.group().create(new GroupData("test1", null, null));
+            app.group().create(new GroupData().withName("test1"));
             app.group().submitGroupPage();
             app.group().returntoGroupPage();
         }
@@ -28,7 +28,7 @@ public class GroupDeleteTest  extends TestBase {
 
       if (!app.isElementPresent(By.name("selected[]"))) {
           app.group().initGroupModification();
-          app.group().create(new GroupData("test1", null, null));
+          app.group().create(new GroupData().withName("test1"));
           app.group().submitGroupPage();
           app.group().returntoGroupPage();
       }
