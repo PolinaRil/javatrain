@@ -3,47 +3,18 @@ package model;
 import java.util.Objects;
 
 public class ContactData{
-    private int id;
-    private final    String name;
-    private final   String patrname;
-    private final String lastname;
-    private final String nickname;
-    private final  String title;
-    private final String company;
-    private final  String city;
-    private final  String home;
-    private final String mobphone;
-    private final String position;
-    private final String fax;
-
-    public  ContactData (String name, String patrname, String lastname, String nickname, String title, String company,String city, String home, String mobphone, String position, String fax) {
-        this.name = name;
-        this.patrname = patrname;
-        this.lastname = lastname;
-        this.nickname = nickname;
-        this.title = title;
-        this.company = company;
-        this.city = city;
-        this.home = home;
-        this.mobphone = mobphone;
-        this.position = position;
-        this.fax = fax;
-    }
-
-    public ContactData (int id, String name, String patrname, String lastname, String nickname, String title, String company,String city, String home, String mobphone, String position, String fax) {
-        this.id = Integer.MAX_VALUE;
-        this.name = name;
-        this.patrname = patrname;
-        this.lastname = lastname;
-        this.nickname = nickname;
-        this.title = title;
-        this.company = company;
-        this.city = city;
-        this.home = home;
-        this.mobphone = mobphone;
-        this.position = position;
-        this.fax = fax;
-    }
+    private int id = Integer.MAX_VALUE;
+    private String name;
+    private  String patrname;
+    private  String lastname;
+    private  String nickname;
+    private   String title;
+    private  String company;
+    private   String city;
+    private   String home;
+    private  String mobphone;
+    private  String position;
+    private  String fax;
 
     public int getId() {
         return id;
@@ -114,8 +85,65 @@ public class ContactData{
         return Objects.hash(name, lastname);
     }
 
-    public void setId(int id) {
+    public ContactData withId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public ContactData withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public ContactData withPatrname(String patrname) {
+        this.patrname = patrname;
+        return this;
+    }
+
+
+    public ContactData withLastname(String lastname) {
+        this.lastname = lastname;
+        return this;
+    }
+
+    public ContactData withNickname(String nickname) {
+        this.nickname = nickname;
+        return this;
+    }
+
+    public ContactData withTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public ContactData withCompany(String company) {
+        this.company = company;
+        return this;
+    }
+
+    public ContactData withCity(String city) {
+        this.city = city;
+        return this;
+    }
+
+    public ContactData withHome(String home) {
+        this.home = home;
+        return this;
+    }
+
+    public ContactData withMobphone(String mobphone) {
+        this.mobphone = mobphone;
+        return this;
+    }
+
+    public ContactData withPosition(String position) {
+        this.position = position;
+        return this;
+    }
+
+    public ContactData withFax(String fax) {
+        this.fax = fax;
+        return this;
     }
 }
 

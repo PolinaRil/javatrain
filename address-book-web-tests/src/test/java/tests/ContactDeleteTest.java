@@ -16,7 +16,7 @@ public class ContactDeleteTest extends TestBase {
 
     if (!app.isElementPresent(By.name("selected[]"))) {
       app.getContactHelper().createNewContact();
-      app.getContactHelper().fillNewContact(new ContactData("Cont2", "Cont3", "Cont", "title", "COMPANY", "Novosibirsk", "nope", "nope", "999999999", "tester", "999999991"));
+      app.getContactHelper().fillNewContact(new ContactData().withName("cont1").withLastname("lastname"));
       app.getContactHelper().submitContactCreation();
     }
 

@@ -3,7 +3,7 @@ package model;
 import java.util.Objects;
 
 public class GroupData {
-    private int id;
+    private int id = Integer.MAX_VALUE;
     private  String name;
     private  String header;
     private  String footer;
