@@ -12,17 +12,17 @@ import java.util.List;
 public class ContactCreationTest extends TestBase {
   @Test (enabled = true)
   public void testContactCreation() throws Exception {
-    app.getContactHelper().returnToContact();
+    app.contact().returnToContact();
 
     List<ContactData> before = app.getContactHelper().getContactList();
 
-    app.getContactHelper().createNewContact();
+    app.contact().createNewContact();
     ContactData contact = new ContactData().withName("cont1").withLastname("lastname");
-    app.getContactHelper().fillNewContact(contact);
-    app.getContactHelper().submitContactCreation();
-    app.getContactHelper().returnToContact();
+    app.contact().fillNewContact(contact);
+    app.contact().submitContactCreation();
+    app.contact().returnToContact();
 
-    List<ContactData> after = app.getContactHelper().getContactList();
+    List<ContactData> after = app.contact().getContactList();
 
     Assert.assertEquals(after.size(), before.size() + 1);
 

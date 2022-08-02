@@ -13,27 +13,27 @@ import java.util.List;
 public class ContactModificationTest extends TestBase {
     @Test (enabled = false)
     public void testContactModification() throws Exception {
-        app.getContactHelper().returnToContact();
+        app.contact().returnToContact();
 
         if (!app.isElementPresent(By.name("selected[]"))) {
-            app.getContactHelper().createNewContact();
-            app.getContactHelper().fillNewContact(new ContactData().withName("cont1").withLastname("lastname"));
-            app.getContactHelper().submitContactCreation();
+            app.contact().createNewContact();
+            app.contact().fillNewContact(new ContactData().withName("cont1").withLastname("lastname"));
+            app.contact().submitContactCreation();
         }
 
-        List<ContactData> before = app.getContactHelper().getContactList();
+        List<ContactData> before = app.contact().getContactList();
 
-        app.getContactHelper().selectContact(before.size() - 1);
-        app.getContactHelper().initContactModification();
+        app.contact().selectContact(before.size() - 1);
+        app.contact().initContactModification();
 
         ContactData contact = new ContactData().withName("cont1").withLastname("lastname");
 
-        app.getContactHelper().fillNewContact(contact);
-        app.getContactHelper().submitContactModification();
+        app.contact().fillNewContact(contact);
+        app.contact().submitContactModification();
 
         // app.getContactHelper().returnToContact();
 
-        List<ContactData> after = app.getContactHelper().getContactList();
+        List<ContactData> after = app.contact().getContactList();
 
         Assert.assertEquals(after.size(), before.size());
 
