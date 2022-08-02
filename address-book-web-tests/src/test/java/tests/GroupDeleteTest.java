@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import ru.javatrain.addressbook.TestBase;
 
 import java.util.List;
+import java.util.Set;
 
 public class GroupDeleteTest  extends TestBase {
 
@@ -33,14 +34,17 @@ public class GroupDeleteTest  extends TestBase {
           app.group().returntoGroupPage();
       }
 
-      List<GroupData> before = app.group().list();
+      Set<GroupData> before = app.group().all();
+      GroupData deletedGroup = before.iterator().next();
 
-      app.group().selectGroup(before.size()-1);
-      app.group().deleteSelectedGroup();
+      app.group().delete(deletedGroup);
       app.group().returntoGroupPage();
 
-      List<GroupData> after = app.group().list();
+      Set<GroupData> after = app.group().all();
 
       Assert.assertEquals(after.size(), before.size() - 1);
+
+      before.remove(deletedGroup);
+        Assert.assertEquals(before,after);
     }
 }

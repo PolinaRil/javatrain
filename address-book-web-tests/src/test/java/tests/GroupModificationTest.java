@@ -9,6 +9,7 @@ import ru.javatrain.addressbook.TestBase;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class GroupModificationTest extends TestBase {
 
@@ -25,26 +26,21 @@ public class GroupModificationTest extends TestBase {
     }
     @Test
     public void testGroupModification() throws Exception {
-        List<GroupData> before = app.group().list();
+        Set<GroupData> before = app.group().all();
 
-        int index = before.size() - 1;
-        app.group().selectGroup(index);
+        GroupData modifiedGroup = before.iterator().next();
         app.group().editGroup();
 
-        GroupData group = new GroupData().withId(before.get(index).getId()).withName("test1").withHeader("test2").withFooter("test3");
+        GroupData group = new GroupData().withId(modifiedGroup.getId()).withName("test1").withHeader("test2").withFooter("test3");
 
-        app.group().modifyGroup(index, group);
+        app.group().modifyGroup(group);
 
-        List<GroupData> after = app.group().list();
+        Set<GroupData> after = app.group().all();
 
         Assert.assertEquals(after.size(), before.size());
 
-        before.remove(index);
+        before.remove(modifiedGroup);
         before.add(group);
-
-        Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
 
         Assert.assertEquals(before, after);
     }
