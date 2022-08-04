@@ -53,19 +53,6 @@ public class GroupHelper extends HelperBase {
         return   driver.findElements(By.name("selected[]")).size();
     }
 
-    public List<GroupData> list() {
-        List<GroupData> groups = new ArrayList<GroupData>();
-        List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
-
-        for (WebElement element: elements) {
-            String name = element.getText();
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            groups.add(new GroupData().withId(id).withName(name));
-        }
-
-        return groups;
-    }
-
     public Set<GroupData> all() {
         Set<GroupData> groups = new HashSet<>();
         List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
@@ -75,6 +62,9 @@ public class GroupHelper extends HelperBase {
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             groups.add(new GroupData().withId(id).withName(name));
         }
+
+        System.out.println(groups);
+        System.out.println(groups.size());
 
         return groups;
     }

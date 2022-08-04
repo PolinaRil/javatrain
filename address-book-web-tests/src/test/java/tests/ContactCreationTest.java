@@ -8,29 +8,36 @@ import ru.javatrain.addressbook.TestBase;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public class ContactCreationTest extends TestBase {
   @Test (enabled = true)
   public void testContactCreation() throws Exception {
     app.contact().returnToContact();
 
-    List<ContactData> before = app.getContactHelper().getContactList();
+    Set<ContactData> before = app.contact().all();
 
     app.contact().createNewContact();
+
     ContactData contact = new ContactData().withName("cont1").withLastname("lastname");
+
+    System.out.println(before);
+
     app.contact().fillNewContact(contact);
     app.contact().submitContactCreation();
-    app.contact().returnToContact();
 
-    List<ContactData> after = app.contact().getContactList();
+
+    app.contact().driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
+    Set<ContactData> after = app.contact().all();
+
+    System.out.println(after);
 
     Assert.assertEquals(after.size(), before.size() + 1);
 
-    contact.withId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
+    contact.withId(after.stream().max(Comparator.comparingInt(ContactData::getId)).get().getId());
     before.add(contact);
-    Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
-    before.sort(byId);
-    after.sort(byId);
-    Assert.assertEquals(before, before);
+    Assert.assertEquals(after, before);
   }
 }

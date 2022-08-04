@@ -6,7 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
     public ContactHelper(WebDriver driver) {
@@ -77,4 +79,38 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
+    public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<>();
+        List<WebElement> elements = driver.findElements(By.cssSelector("[name=\"entry\"]"));
+
+        System.out.println(elements);
+
+        for (WebElement element : elements) {
+            System.out.println(element);
+
+            List<WebElement> attributes = element.findElements(By.tagName("td"));
+
+            String lastName = attributes.get(1).getText();
+            String firstName = attributes.get(2).getText();
+
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+
+            System.out.println(id);
+
+            ContactData contact = new ContactData().
+                    withId(id).
+                    withName(firstName).
+                    withLastname(lastName);
+
+            contacts.add(contact);
+
+            System.out.println(contacts);
+            System.out.println(contacts.size());
+        }
+
+        System.out.println(contacts);
+        System.out.println(contacts.size());
+
+        return contacts;
+    }
 }

@@ -82,7 +82,7 @@ public class ContactData{
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, lastname);
+        return Objects.hash(id, name, lastname);
     }
 
     public ContactData withId(int id) {
