@@ -83,10 +83,8 @@ public class ContactHelper extends HelperBase {
         Set<ContactData> contacts = new HashSet<>();
         List<WebElement> elements = driver.findElements(By.cssSelector("[name=\"entry\"]"));
 
-        System.out.println(elements);
 
         for (WebElement element : elements) {
-            System.out.println(element);
 
             List<WebElement> attributes = element.findElements(By.tagName("td"));
 
@@ -94,8 +92,6 @@ public class ContactHelper extends HelperBase {
             String firstName = attributes.get(2).getText();
 
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-
-            System.out.println(id);
 
             ContactData contact = new ContactData().
                     withId(id).
@@ -108,9 +104,18 @@ public class ContactHelper extends HelperBase {
             System.out.println(contacts.size());
         }
 
-        System.out.println(contacts);
-        System.out.println(contacts.size());
-
         return contacts;
+    }
+
+    public void modifyContact(ContactData contact) {
+        fillNewContact(contact);
+        submitContactModification();
+    }
+
+    public void delete(ContactData contact) {
+       driver.findElement(By.name("selected[]"));
+       driver.findElement(By.name("selected[]")).click();
+       driver.findElement(By.cssSelector("input[value=\"Delete\"]")).click();
+       driver.switchTo().alert().accept();
     }
 }

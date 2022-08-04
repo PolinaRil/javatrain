@@ -1,16 +1,18 @@
 package tests;
 
 import model.ContactData;
+import model.GroupData;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import ru.javatrain.addressbook.TestBase;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 public class ContactDeleteTest extends TestBase {
-  @Test (enabled = false)
+  @Test (enabled = true)
   public void testContactDelete() throws Exception {
     app.contact().returnToContact();
 
@@ -20,16 +22,14 @@ public class ContactDeleteTest extends TestBase {
       app.contact().submitContactCreation();
     }
 
-    List<ContactData> before = app.contact().getContactList();
+    Set<ContactData> before = app.contact().all();
+    ContactData deletedContact = before.iterator().next();
 
-    app.contact().driver.findElement(By.name("selected[]"));
-    app.contact().driver.findElement(By.name("selected[]")).click();
-    app.contact().driver.findElement(By.cssSelector("input[value=\"Delete\"]")).click();
-    app.contact().driver.switchTo().alert().accept();
+    app.contact().delete(deletedContact);
 
-    app.contact().driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    app.contact().driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
 
-    List<ContactData> after = app.getContactHelper().getContactList();
+    Set<ContactData> after = app.contact().all();
 
     Assert.assertEquals(after.size(), before.size() - 1);
   }

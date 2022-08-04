@@ -9,9 +9,10 @@ import ru.javatrain.addressbook.TestBase;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class ContactModificationTest extends TestBase {
-    @Test (enabled = false)
+    @Test (enabled = true)
     public void testContactModification() throws Exception {
         app.contact().returnToContact();
 
@@ -21,28 +22,24 @@ public class ContactModificationTest extends TestBase {
             app.contact().submitContactCreation();
         }
 
-        List<ContactData> before = app.contact().getContactList();
+        Set<ContactData> before = app.contact().all();
 
         app.contact().selectContact(before.size() - 1);
         app.contact().initContactModification();
 
         ContactData contact = new ContactData().withName("cont1").withLastname("lastname");
 
-        app.contact().fillNewContact(contact);
-        app.contact().submitContactModification();
+        app.contact().modifyContact(contact);
+//        app.contact().fillNewContact(contact);
+//        app.contact().submitContactModification();
 
-        // app.getContactHelper().returnToContact();
 
-        List<ContactData> after = app.contact().getContactList();
+        Set<ContactData> after = app.contact().all();
 
         Assert.assertEquals(after.size(), before.size());
 
         before.remove(before.size() - 1);
         before.add(contact);
-
-        Comparator<? super ContactData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
 
         Assert.assertEquals(before, after);
     }
