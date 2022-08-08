@@ -1,6 +1,9 @@
 package tests;
 
 import model.GroupData;
+import model.Groups;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -34,17 +37,16 @@ public class GroupDeleteTest  extends TestBase {
           app.group().returntoGroupPage();
       }
 
-      Set<GroupData> before = app.group().all();
+      Groups before = app.group().all();
       GroupData deletedGroup = before.iterator().next();
 
       app.group().delete(deletedGroup);
       app.group().returntoGroupPage();
 
-      Set<GroupData> after = app.group().all();
+      Groups after = app.group().all();
 
       Assert.assertEquals(after.size(), before.size() - 1);
 
-      before.remove(deletedGroup);
-        Assert.assertEquals(before,after);
+        MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.withoutAdded(deletedGroup)));
     }
 }

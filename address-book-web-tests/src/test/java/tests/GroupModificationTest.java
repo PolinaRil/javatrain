@@ -1,15 +1,14 @@
 package tests;
 
 import model.GroupData;
-import org.openqa.selenium.By;
-import org.testng.Assert;
+import model.Groups;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ru.javatrain.addressbook.TestBase;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.AssertJUnit.assertEquals;
 
 public class GroupModificationTest extends TestBase {
 
@@ -24,9 +23,10 @@ public class GroupModificationTest extends TestBase {
             app.group().returntoGroupPage();
         }
     }
+
     @Test
     public void testGroupModification() throws Exception {
-        Set<GroupData> before = app.group().all();
+        Groups before = app.group().all();
 
         GroupData modifiedGroup = before.iterator().next();
         app.group().editGroup();
@@ -35,14 +35,11 @@ public class GroupModificationTest extends TestBase {
 
         app.group().modifyGroup(group);
 
-        Set<GroupData> after = app.group().all();
+        Groups after = app.group().all();
 
-        Assert.assertEquals(after.size(), before.size());
+        assertEquals(after.size(), before.size());
 
-        before.remove(modifiedGroup);
-        before.add(group);
-
-        Assert.assertEquals(before, after);
+        assertThat(after, equalTo(before.withoutAdded(modifiedGroup).withAdded(modifiedGroup)));
     }
 
 }
