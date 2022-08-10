@@ -1,7 +1,10 @@
 package tests;
 
 import model.ContactData;
+import model.Contacts;
 import model.GroupData;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -22,15 +25,16 @@ public class ContactDeleteTest extends TestBase {
       app.contact().submitContactCreation();
     }
 
-    Set<ContactData> before = app.contact().all();
+    Contacts before = app.contact().all();
     ContactData deletedContact = before.iterator().next();
 
     app.contact().delete(deletedContact);
 
-    app.contact().driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
+    app.contact().driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
 
-    Set<ContactData> after = app.contact().all();
+    Contacts after = app.contact().all();
 
-    Assert.assertEquals(after.size(), before.size() - 1);
+    //Assert.assertEquals(after.size(), before.size() - 1);
+    MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.withoutAdded(deletedContact)));
   }
 }
