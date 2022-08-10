@@ -26,11 +26,13 @@ public class GroupHelper extends HelperBase {
         type(By.name("group_name"), groupData.getName());
         type(By.name("group_header"), groupData.getHeader());
         type(By.name("group_footer"), groupData.getFooter());
+        groupCache = null;
     }
 
     public void modifyGroup(GroupData group) {
         create(group);
         submitGroupModification();
+        groupCache = null;
         returntoGroupPage();
     }
     public void deleteSelectedGroup() {
@@ -54,25 +56,31 @@ public class GroupHelper extends HelperBase {
         return   driver.findElements(By.name("selected[]")).size();
     }
 
+    private Groups groupCache = null;
+
     public Groups all() {
-        Groups groups = new Groups();
+        if (groupCache != null) {
+            return new Groups(groupCache);
+        }
+        groupCache = new Groups();
         List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
 
         for (WebElement element: elements) {
             String name = element.getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            groups.add(new GroupData().withId(id).withName(name));
+            groupCache.add(new GroupData().withId(id).withName(name));
         }
 
-        System.out.println(groups);
-        System.out.println(groups.size());
+        System.out.println(groupCache);
+        System.out.println(groupCache.size());
 
-        return groups;
+        return groupCache;
     }
 
     public void delete(GroupData group) {
         selectGroupById(group.getId());
         deleteSelectedGroup();
+        groupCache = null;
         returntoGroupPage();
     }
 }

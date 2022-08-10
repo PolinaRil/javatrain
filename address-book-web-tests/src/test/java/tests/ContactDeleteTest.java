@@ -30,11 +30,9 @@ public class ContactDeleteTest extends TestBase {
 
     app.contact().delete(deletedContact);
 
-    app.contact().driver.manage().timeouts().implicitlyWait(25, TimeUnit.SECONDS);
-
+    Thread.sleep(1000);
     Contacts after = app.contact().all();
 
-    //Assert.assertEquals(after.size(), before.size() - 1);
     MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.withoutAdded(deletedContact)));
   }
 }
