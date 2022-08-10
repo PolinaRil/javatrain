@@ -1,6 +1,7 @@
 package appmanager;
 
 import model.ContactData;
+import model.Contacts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -79,7 +80,7 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
-    public Set<ContactData> all() {
+    /**public Set<ContactData> all() {
         Set<ContactData> contacts = new HashSet<>();
         List<WebElement> elements = driver.findElements(By.cssSelector("[name=\"entry\"]"));
 
@@ -106,7 +107,28 @@ public class ContactHelper extends HelperBase {
 
         return contacts;
     }
+*/
+    public Contacts all() {
+        Contacts contacts = new Contacts();
+        List<WebElement> elements = driver.findElements(By.cssSelector("[name=\"entry\"]"));
 
+
+        for (WebElement element : elements) {
+
+            List<WebElement> attributes = element.findElements(By.tagName("td"));
+
+            String lastName = attributes.get(1).getText();
+            String firstName = attributes.get(2).getText();
+
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            contacts.add(new ContactData().withId(id).withName(firstName).withLastname(lastName));
+
+            System.out.println(contacts);
+            System.out.println(contacts.size());
+        }
+
+        return contacts;
+    }
     public void modifyContact(ContactData contact) {
         fillNewContact(contact);
         submitContactModification();
