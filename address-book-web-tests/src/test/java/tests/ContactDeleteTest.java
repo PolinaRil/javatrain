@@ -2,17 +2,11 @@ package tests;
 
 import model.ContactData;
 import model.Contacts;
-import model.GroupData;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.By;
-import org.testng.Assert;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 import ru.javatrain.addressbook.TestBase;
-
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 public class ContactDeleteTest extends TestBase {
   @Test (enabled = true)

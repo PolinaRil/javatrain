@@ -2,6 +2,7 @@ package appmanager;
 
 import model.ContactData;
 import model.Contacts;
+import model.Groups;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -54,6 +55,8 @@ public class ContactHelper extends HelperBase {
         return driver.findElements(By.name("selected[]")).size();
     }
 
+    private Contacts contactCache = null;
+
     public void selectContact(int index) {
         driver.findElements(By.name("selected[]")).get(index).click();
     }
@@ -80,36 +83,11 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
-    /**public Set<ContactData> all() {
-        Set<ContactData> contacts = new HashSet<>();
-        List<WebElement> elements = driver.findElements(By.cssSelector("[name=\"entry\"]"));
-
-
-        for (WebElement element : elements) {
-
-            List<WebElement> attributes = element.findElements(By.tagName("td"));
-
-            String lastName = attributes.get(1).getText();
-            String firstName = attributes.get(2).getText();
-
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-
-            ContactData contact = new ContactData().
-                    withId(id).
-                    withName(firstName).
-                    withLastname(lastName);
-
-            contacts.add(contact);
-
-            System.out.println(contacts);
-            System.out.println(contacts.size());
-        }
-
-        return contacts;
-    }
-*/
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if (contactCache != null) {
+            return new Contacts(contactCache);
+        }
+        contactCache = new Contacts();
         List<WebElement> elements = driver.findElements(By.cssSelector("[name=\"entry\"]"));
 
 
@@ -121,23 +99,25 @@ public class ContactHelper extends HelperBase {
             String firstName = attributes.get(2).getText();
 
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            contacts.add(new ContactData().withId(id).withName(firstName).withLastname(lastName));
+            contactCache.add(new ContactData().withId(id).withName(firstName).withLastname(lastName));
 
-            System.out.println(contacts);
-            System.out.println(contacts.size());
+            System.out.println(contactCache);
+            System.out.println(contactCache.size());
         }
 
-        return contacts;
+        return contactCache;
     }
     public void modifyContact(ContactData contact) {
         fillNewContact(contact);
         submitContactModification();
+        contactCache = null;
     }
 
     public void delete(ContactData contact) {
        driver.findElement(By.name("selected[]"));
        driver.findElement(By.name("selected[]")).click();
        driver.findElement(By.cssSelector("input[value=\"Delete\"]")).click();
+       contactCache = null;
        driver.switchTo().alert().accept();
     }
 }
