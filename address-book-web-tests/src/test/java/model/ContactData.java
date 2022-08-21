@@ -15,6 +15,12 @@ public class ContactData{
     private  String mobphone;
     private  String position;
     private  String fax;
+    private  String allPhones;
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
 
     public int getId() {
         return id;
@@ -47,7 +53,7 @@ public class ContactData{
         return city;
     }
 
-    public String getHome() {
+    public String getHomephone() {
         return home;
     }
 
@@ -55,7 +61,7 @@ public class ContactData{
         return mobphone;
     }
 
-    public String getPosition() {
+    public String getWorkphone() {
         return position;
     }
 
@@ -126,7 +132,7 @@ public class ContactData{
         return this;
     }
 
-    public ContactData withHome(String home) {
+    public ContactData withHomephone(String home) {
         this.home = home;
         return this;
     }
@@ -136,7 +142,7 @@ public class ContactData{
         return this;
     }
 
-    public ContactData withPosition(String position) {
+    public ContactData withWorkPhone(String position) {
         this.position = position;
         return this;
     }
@@ -145,5 +151,11 @@ public class ContactData{
         this.fax = fax;
         return this;
     }
+
+    public ContactData withallPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
 }
 

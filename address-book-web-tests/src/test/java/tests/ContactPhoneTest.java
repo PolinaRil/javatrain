@@ -5,6 +5,12 @@ import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import ru.javatrain.addressbook.TestBase;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 public class ContactPhoneTest extends TestBase {
 
     @Test
@@ -18,10 +24,19 @@ public class ContactPhoneTest extends TestBase {
         }
 
         ContactData contact = app.contact().all().iterator().next();
-        ContactData contactInfoFromEditForm = app.contact().InfoFromEditForm(contact);
-
+        ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
+        assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
     }
 
+    private String mergePhones(ContactData contact) {
+       return Arrays.asList(contact.getHomephone(), contact.getMobphone(), contact.getWorkphone())
+               .stream().filter((s) -> !s.equals("")).
+               map(ContactPhoneTest::cleaned).collect(Collectors.joining("\n"));
+    }
+
+    public static String cleaned (String phone) {
+        return phone.replaceAll("\\s", "").replaceAll("[-()]", "");
+}
 
 
 }
