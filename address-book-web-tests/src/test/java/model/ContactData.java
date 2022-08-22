@@ -20,6 +20,7 @@ public class ContactData{
     private String email1;
     private String email2;
     private String email3;
+    private String contactName;
 
     private  String allEmails;
 
@@ -93,6 +94,10 @@ public class ContactData{
 
     public String getFax() {
         return fax;
+    }
+
+    public String getContactName() {
+        return contactName;
     }
 
     @Override
@@ -187,6 +192,10 @@ public class ContactData{
         return this;
     }
 
+    public ContactData withcontactName(String contactName) {
+        this.contactName = contactName;
+        return this;
+    }
     public ContactData withAddress(String address) {
         this.address = address;
         return this;
