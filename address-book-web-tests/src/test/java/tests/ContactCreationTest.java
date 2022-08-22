@@ -1,16 +1,12 @@
 package tests;
 
 
-import model.Contacts;
-import org.testng.Assert;
-import org.testng.annotations.*;
 import model.ContactData;
+import model.Contacts;
+import org.testng.annotations.Test;
 import ru.javatrain.addressbook.TestBase;
 
 import java.util.Comparator;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -24,23 +20,19 @@ public class ContactCreationTest extends TestBase {
 
     app.contact().createNewContact();
 
-    ContactData contact = new ContactData().withName("cont1").withLastname("lastname");
-
-    System.out.println(before);
+    ContactData contact = new ContactData().withName("cont1").withLastname("lastname").withAddress("address").withHomephone("123").withMobphone("456").withWorkPhone("789")
+            .withEmail1("test@mail.ru").withEmail2("test2@mail.ru").withEmail3("test3@mail.ru");
 
     app.contact().fillNewContact(contact);
     app.contact().submitContactCreation();
 
 
-    app.contact().driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-
     Contacts after = app.contact().all();
+    after.add(contact);
 
-    System.out.println(after);
-
+    Thread.sleep(2000);
     assertThat(after.size(), equalTo(before.size() + 1));
 
-    before.add(contact);
     assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().max(Comparator.comparingInt(ContactData::getId)).get().getId()))));
   }
 }
