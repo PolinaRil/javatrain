@@ -2,27 +2,23 @@ package model;
 
 import java.util.Objects;
 
-public class ContactData{
+public class ContactData {
     private int id = Integer.MAX_VALUE;
     private String name;
-    private  String patrname;
-    private  String lastname;
-    private  String nickname;
-    private   String title;
-    private  String company;
-    private   String city;
-    private   String home;
-    private  String mobphone;
-    private  String position;
-    private  String fax;
-    private  String allPhones;
+    private String patrname;
+    private String lastname;
+    private String nickname;
+    private String title;
+    private String company;
+    private String city;
+    private String home;
+    private String mobphone;
+    private String workphone;
+    private String fax;
     private String address;
     private String email1;
     private String email2;
     private String email3;
-    private String contactName;
-
-    private  String allEmails;
 
     public String getEmail1() {
         return email1;
@@ -41,17 +37,30 @@ public class ContactData{
         return address;
     }
 
-    public String getAllPhones() {
-        return allPhones;
+    public String[] getAllPhones() {
+        String[] a = new String[3];
+
+        a[0] = home;
+        a[1] = mobphone;
+        a[2] = workphone;
+
+        return a;
     }
 
-    public String getAllEmails() {
-        return allEmails;
+    public String[] getAllEmails() {
+        String[] a = new String[3];
+
+        a[0] = email1;
+        a[1] = email2;
+        a[2] = email3;
+
+        return a;
     }
 
     public int getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
@@ -89,24 +98,16 @@ public class ContactData{
     }
 
     public String getWorkphone() {
-        return position;
+        return workphone;
     }
 
     public String getFax() {
         return fax;
     }
 
-    public String getContactName() {
-        return contactName;
-    }
-
     @Override
     public String toString() {
-        return "ContactData{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                '}';
+        return "ContactData{" + "id=" + id + ", name='" + name + '\'' + ", lastname='" + lastname + '\'' + '}';
     }
 
     @Override
@@ -163,55 +164,63 @@ public class ContactData{
         return this;
     }
 
-    public ContactData withHomephone(String home) {
+    public ContactData withHomePhone(String home) {
         this.home = home;
         return this;
     }
 
-    public ContactData withMobphone(String mobphone) {
-        this.mobphone = mobphone;
+    public ContactData withMobPhone(String mobPhone) {
+        this.mobphone = mobPhone;
+
         return this;
     }
 
-    public ContactData withWorkPhone(String position) {
-        this.position = position;
+    public ContactData withWorkPhone(String workPhone) {
+        this.workphone = workPhone;
+
         return this;
     }
 
     public ContactData withFax(String fax) {
         this.fax = fax;
+
         return this;
     }
 
-    public ContactData withallPhones(String allPhones) {
-        this.allPhones = allPhones;
-        return this;
-    }
-    public ContactData withallEmails(String allEmails) {
-        this.allEmails = allEmails;
+    public ContactData withAllPhones(String[] phones) {
+        this.home = phones[0];
+        this.mobphone = phones[1];
+        this.workphone = phones[2];
+
         return this;
     }
 
-    public ContactData withcontactName(String contactName) {
-        this.contactName = contactName;
+    public ContactData withAllEmails(String[] emails) {
+        this.email1 = emails[0];
+        this.email2 = emails[1];
+        this.email3 = emails[2];
+
         return this;
     }
+
     public ContactData withAddress(String address) {
         this.address = address;
         return this;
     }
+
     public ContactData withEmail1(String email1) {
         this.email1 = email1;
         return this;
     }
+
     public ContactData withEmail2(String email2) {
         this.email2 = email2;
         return this;
     }
+
     public ContactData withEmail3(String email3) {
         this.email3 = email3;
         return this;
     }
-
 }
 
