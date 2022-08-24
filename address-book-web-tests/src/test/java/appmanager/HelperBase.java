@@ -3,6 +3,8 @@ package appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+import java.io.File;
+
 public class HelperBase {
     public WebDriver driver;
 
@@ -28,4 +30,11 @@ public class HelperBase {
             }
         }
     }
-}
+
+    protected void attach(By locator, File file) {
+        if (file != null){
+                driver.findElement(locator).sendKeys(file.getAbsolutePath());
+            }
+        }
+    }
+

@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
@@ -19,6 +20,11 @@ public class ContactData {
     private String email1;
     private String email2;
     private String email3;
+    private File photo;
+
+    public File getPhoto() {
+        return photo;
+    }
 
     public String getEmail1() {
         return email1;
@@ -222,5 +228,10 @@ public class ContactData {
         this.email3 = email3;
         return this;
     }
-}
 
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
+    }
+
+}
