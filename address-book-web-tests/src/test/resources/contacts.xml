@@ -2,34 +2,34 @@
   <contacts>
     <name>name 0</name>
     <lastname>surname 0</lastname>
-    <home>123 0</home>
-    <mobphone>456 0</mobphone>
-    <workphone>789 0</workphone>
-    <address>address 0</address>
-    <email1>test1@mail.ru 0</email1>
-    <email2>test2@mail.ru 0</email2>
-    <email3>test3@mail.ru 0</email3>
+    <home>123</home>
+    <mobphone>456</mobphone>
+    <workphone>789</workphone>
+    <address>street 0</address>
+    <email1>test1@mail.ru</email1>
+    <email2>test2@mail.ru</email2>
+    <email3>test3@mail.ru</email3>
   </contacts>
   <contacts>
     <name>name 1</name>
     <lastname>surname 1</lastname>
-    <home>123 1</home>
-    <mobphone>456 1</mobphone>
-    <workphone>789 1</workphone>
-    <address>address 1</address>
-    <email1>test1@mail.ru 1</email1>
-    <email2>test2@mail.ru 1</email2>
-    <email3>test3@mail.ru 1</email3>
+    <home>123</home>
+    <mobphone>456</mobphone>
+    <workphone>789</workphone>
+    <address>street 1</address>
+    <email1>test1@mail.ru</email1>
+    <email2>test2@mail.ru</email2>
+    <email3>test3@mail.ru</email3>
   </contacts>
   <contacts>
     <name>name 2</name>
     <lastname>surname 2</lastname>
-    <home>123 2</home>
-    <mobphone>456 2</mobphone>
-    <workphone>789 2</workphone>
-    <address>address 2</address>
-    <email1>test1@mail.ru 2</email1>
-    <email2>test2@mail.ru 2</email2>
-    <email3>test3@mail.ru 2</email3>
+    <home>123</home>
+    <mobphone>456</mobphone>
+    <workphone>789</workphone>
+    <address>street 2</address>
+    <email1>test1@mail.ru</email1>
+    <email2>test2@mail.ru</email2>
+    <email3>test3@mail.ru</email3>
   </contacts>
 </list>

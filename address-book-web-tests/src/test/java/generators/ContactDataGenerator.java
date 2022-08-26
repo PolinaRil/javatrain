@@ -80,13 +80,13 @@ public class ContactDataGenerator {
             contacts.add(new ContactData()
                     .withName(String.format("name %s", i))
                     .withLastname(String.format("surname %s", i))
-                    .withAddress(String.format("address %s", i))
-                    .withHomePhone(String.format("123 %s", i))
-                    .withMobPhone(String.format("456 %s", i))
-                    .withWorkPhone(String.format("789 %s", i))
-                    .withEmail1(String.format("test1@mail.ru %s", i))
-                    .withEmail2(String.format("test2@mail.ru %s", i))
-                    .withEmail3(String.format("test3@mail.ru %s", i)));
+                    .withAddress(String.format("street %s", i))
+                    .withHomePhone(String.format("123", i))
+                    .withMobPhone(String.format("456", i))
+                    .withWorkPhone(String.format("789", i))
+                    .withEmail1(String.format("test1@mail.ru", i))
+                    .withEmail2(String.format("test2@mail.ru", i))
+                    .withEmail3(String.format("test3@mail.ru", i)));
 
         }
         return contacts;
