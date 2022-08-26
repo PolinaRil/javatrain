@@ -1,6 +1,8 @@
 package tests;
 
 
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.security.AnyTypePermission;
 import model.ContactData;
 import model.Contacts;
 import org.testng.annotations.DataProvider;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -23,25 +26,30 @@ public class ContactCreationTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validContacts() throws IOException {
-        List<Object[]> list = new ArrayList<Object[]>();
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.csv")));
-        String line = reader.readLine();
-        while(line != null)    {
-            String[] split = line.split(";");
-            list.add(new Object[] {new ContactData().
-                    withName(split[0]).
-                    withLastname(split[1]).
-                    withAddress(split[2]).
-                    withHomePhone(split[3]).
-                    withMobPhone(split[4]).
-                    withWorkPhone(split[5]).
-                    withEmail1(split[6]).
-                    withEmail2(split[7]).
-                    withEmail3(split[8])});
+        System.out.println("T0");
 
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
+        String xml = "";
+        String line = reader.readLine();
+
+        System.out.println("T1");
+
+        while(line != null)    {
+            xml += line;
             line = reader.readLine();
         }
-        return list.iterator();
+
+        System.out.println("T2");
+
+        XStream xstream = new XStream();
+        xstream.addPermission(AnyTypePermission.ANY);
+        xstream.processAnnotations(ContactData.class);
+
+        System.out.println("T3");
+        List<ContactData> contacts = (List<ContactData>) xstream.fromXML(xml);
+
+        System.out.println("T4");
+        return contacts.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
 
     }
 

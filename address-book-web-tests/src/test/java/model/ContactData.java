@@ -1,9 +1,16 @@
 package model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.File;
 import java.util.Objects;
 
+@XStreamAlias("contacts")
+
 public class ContactData {
+
+    @XStreamOmitField
     private int id = Integer.MAX_VALUE;
     private String name;
     private String patrname;
