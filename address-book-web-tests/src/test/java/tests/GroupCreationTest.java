@@ -3,6 +3,8 @@ package tests;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.security.AnyTypePermission;
 import model.Groups;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.*;
 import model.GroupData;
 import ru.javatrain.addressbook.TestBase;
@@ -15,6 +17,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupCreationTest extends TestBase {
+    Logger logger = LoggerFactory.getLogger(GroupCreationTest.class);
     @DataProvider
     public Iterator<Object[]> validGroups() throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")));
@@ -37,6 +40,7 @@ public class GroupCreationTest extends TestBase {
 
     @Test(dataProvider = "validGroups")
     public void testGroupCreation(GroupData group) throws Exception {
+        logger.info("Start GroupCreationTest");
         app.goTo().groupPage();
 
         Groups before = app.group().all();
@@ -50,6 +54,7 @@ public class GroupCreationTest extends TestBase {
 
         assertThat(app.group().count(), equalTo(before.size() + 1));
         assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+        logger.info("Start GroupCreationTest");
     }
 
     public void testBadGroupCreation() throws Exception {
