@@ -26,20 +26,15 @@ public class ContactCreationTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validContacts() throws IOException {
-        System.out.println("T0");
 
         BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
         String xml = "";
         String line = reader.readLine();
 
-        System.out.println("T1");
-
         while(line != null)    {
             xml += line;
             line = reader.readLine();
         }
-
-        System.out.println("T2");
 
         XStream xstream = new XStream();
         xstream.addPermission(AnyTypePermission.ANY);
