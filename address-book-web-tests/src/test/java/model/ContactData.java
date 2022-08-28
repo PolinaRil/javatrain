@@ -2,35 +2,51 @@ package model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 @XStreamAlias("contacts")
-
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
-
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
+    @Column(name = "firstname")
     private String name;
-    private String patrname;
+    @Column(name = "lastname")
     private String lastname;
-    private String nickname;
-    private String title;
-    private String company;
-    private String city;
+    @Column(name = "home")
     private String home;
+    @Column(name = "mobile")
     private String mobphone;
+    @Column(name = "work")
     private String workphone;
-    private String fax;
+    @Transient
+    private String group;
+    @Column(name = "address")
     private String address;
+    @Column(name = "email")
     private String email1;
+    @Column(name = "email2")
     private String email2;
+    @Column(name = "email3")
     private String email3;
-    private File photo;
+    @Column(name = "photo")
+    private String photo;
+    @Column(name = "created", columnDefinition = "TIMESTAMP")
+    private Date created;
+    @Column(name = "deprecated", columnDefinition = "TIMESTAMP")
+    private Date deprecated;
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     public String getEmail1() {
@@ -78,29 +94,10 @@ public class ContactData {
         return name;
     }
 
-    public String getPatrname() {
-        return patrname;
-    }
-
     public String getLastname() {
         return lastname;
     }
 
-    public String getNickname() {
-        return nickname;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public String getCity() {
-        return city;
-    }
 
     public String getHomephone() {
         return home;
@@ -114,9 +111,6 @@ public class ContactData {
         return workphone;
     }
 
-    public String getFax() {
-        return fax;
-    }
 
     @Override
     public String toString() {
@@ -146,36 +140,12 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withPatrname(String patrname) {
-        this.patrname = patrname;
-        return this;
-    }
-
 
     public ContactData withLastname(String lastname) {
         this.lastname = lastname;
         return this;
     }
 
-    public ContactData withNickname(String nickname) {
-        this.nickname = nickname;
-        return this;
-    }
-
-    public ContactData withTitle(String title) {
-        this.title = title;
-        return this;
-    }
-
-    public ContactData withCompany(String company) {
-        this.company = company;
-        return this;
-    }
-
-    public ContactData withCity(String city) {
-        this.city = city;
-        return this;
-    }
 
     public ContactData withHomePhone(String home) {
         this.home = home;
@@ -190,12 +160,6 @@ public class ContactData {
 
     public ContactData withWorkPhone(String workPhone) {
         this.workphone = workPhone;
-
-        return this;
-    }
-
-    public ContactData withFax(String fax) {
-        this.fax = fax;
 
         return this;
     }
@@ -237,8 +201,7 @@ public class ContactData {
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
-
 }

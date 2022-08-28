@@ -1,6 +1,6 @@
 package tests;
 
-import model.GroupData;
+import model.ContactData;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -16,18 +16,14 @@ public class HbConnectionTest {
 
     @BeforeClass
     protected void setUp() throws Exception {
-        // A SessionFactory is set up once for an application!
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-                .configure() // configures settings from hibernate.cfg.xml
+                .configure()
                 .build();
         try {
-            sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
-        }
-        catch (Exception e) {
+            sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
+        } catch (Exception e) {
             e.printStackTrace();
-            // The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
-            // so destroy it manually.
-            StandardServiceRegistryBuilder.destroy( registry );
+            StandardServiceRegistryBuilder.destroy(registry);
         }
     }
 
@@ -35,12 +31,16 @@ public class HbConnectionTest {
     public void testHbConnection() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<GroupData> result = session.createQuery( "from GroupData" ).list();
-        for ( GroupData group : result ) {
-            System.out.println(group);
+
+        List<ContactData> result = session.createQuery("from ContactData where deprecated = '0000-00-00'").list();
+
+        System.out.println(result.stream().count());
+
+        for (ContactData contact : result) {
+            System.out.println(contact);
         }
+
         session.getTransaction().commit();
         session.close();
-
     }
 }

@@ -22,16 +22,11 @@ public class ContactHelper extends HelperBase {
     public void fillNewContact(ContactData contactData) {
         driver.findElement(By.name("firstname")).click();
         type(By.name("firstname"), contactData.getName());
-        type(By.name("middlename"), contactData.getPatrname());
         type(By.name("lastname"), contactData.getLastname());
-        type(By.name("nickname"), contactData.getNickname());
-        type(By.name("title"), contactData.getTitle());
-        type(By.name("company"), contactData.getCompany());
         type(By.name("address"), contactData.getAddress());
         type(By.name("home"), contactData.getHomephone());
         type(By.name("mobile"), contactData.getMobphone());
         type(By.name("work"), contactData.getWorkphone());
-        type(By.name("fax"), contactData.getFax());
         type(By.name("email"), contactData.getEmail1());
         type(By.name("email2"), contactData.getEmail2());
         type(By.name("email3"), contactData.getEmail3());

@@ -18,6 +18,7 @@
         <property name="connection.url">jdbc:mysql://localhost:3306/addressbook</property>
         <property name="connection.username">root</property>
         <property name="connection.password"></property>
+        <property name="connection.zeroDateTimeBehavior">convertToNull</property>
 
         <!-- JDBC connection pool (use the built-in) -->
         <property name="connection.pool_size">1</property>
@@ -36,6 +37,7 @@
 
         <!-- Names the annotated entity class -->
         <mapping class="model.GroupData"/>
+        <mapping class="model.ContactData"/>
 
     </session-factory>
 
