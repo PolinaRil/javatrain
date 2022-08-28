@@ -52,20 +52,21 @@ public class ContactCreationTest extends TestBase {
     public void testContactCreation(ContactData contact) throws Exception {
         app.contact().returnToContact();
 
-        Contacts before = app.contact().all();
-
+        Contacts before = app.db().contacts();
+System.out.println(before.stream().count());
         app.contact().createNewContact();
-        File photo = new File("src/test/resources/photo_2021-09-01_07-53-55.jpg");
+        //File photo = new File("src/test/resources/photo_2021-09-01_07-53-55.jpg");
 
         app.contact().fillNewContact(contact);
         app.contact().submitContactCreation();
 
 
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         after.add(contact);
+        System.out.println(after.stream().count());
 
         Thread.sleep(2000);
-        assertThat(after.size(), equalTo(before.size() + 1));
+        assertThat(after.size(), equalTo(before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
     }
 
 }

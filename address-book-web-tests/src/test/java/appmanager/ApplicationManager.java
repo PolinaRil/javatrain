@@ -21,6 +21,7 @@ public class ApplicationManager {
     private GroupHelper groupHelper;
     private ContactHelper contactHelper;
     private final String browser;
+    private DbHelper dbHelper;
 
     public ApplicationManager(String browser) throws IOException {
         this.browser = browser;
@@ -35,6 +36,7 @@ public class ApplicationManager {
         System.setProperty("webdriver.chrome.driver", properties.getProperty("webdriver.chrome.driver"));
         System.setProperty("webdriver.ie.driver", properties.getProperty("webdriver.ie.driver"));
 
+        dbHelper = new DbHelper();
 
         switch (browser) {
             case BrowserType.CHROME:
@@ -57,6 +59,7 @@ public class ApplicationManager {
 
         sessionHelper = new SessionHelper(driver);
         sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
+
     }
 
     public void stop() {
@@ -90,5 +93,9 @@ public class ApplicationManager {
 
     public SessionHelper getSessionHelper() {
         return sessionHelper;
+    }
+
+    public DbHelper db() {
+        return dbHelper;
     }
 }
