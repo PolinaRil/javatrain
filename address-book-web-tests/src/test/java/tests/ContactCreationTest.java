@@ -23,15 +23,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 public class ContactCreationTest extends TestBase {
-
     @DataProvider
     public Iterator<Object[]> validContacts() throws IOException {
-
         BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
         String xml = "";
         String line = reader.readLine();
 
-        while(line != null)    {
+        while (line != null) {
             xml += line;
             line = reader.readLine();
         }
@@ -40,33 +38,29 @@ public class ContactCreationTest extends TestBase {
         xstream.addPermission(AnyTypePermission.ANY);
         xstream.processAnnotations(ContactData.class);
 
-        System.out.println("T3");
         List<ContactData> contacts = (List<ContactData>) xstream.fromXML(xml);
 
-        System.out.println("T4");
         return contacts.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
-
     }
 
-    @Test(dataProvider = "validContacts" )
+    @Test(dataProvider = "validContacts")
     public void testContactCreation(ContactData contact) throws Exception {
         app.contact().returnToContact();
 
         Contacts before = app.db().contacts();
-System.out.println(before.stream().count());
+        System.out.println(before.stream().count());
         app.contact().createNewContact();
         //File photo = new File("src/test/resources/photo_2021-09-01_07-53-55.jpg");
 
         app.contact().fillNewContact(contact);
         app.contact().submitContactCreation();
 
+        Thread.sleep(2000);
 
         Contacts after = app.db().contacts();
-        after.add(contact);
+        before.add(contact);
         System.out.println(after.stream().count());
 
-        Thread.sleep(2000);
-        assertThat(after.size(), equalTo(before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+        assertThat(after.size(), equalTo(before.size()));
     }
-
 }

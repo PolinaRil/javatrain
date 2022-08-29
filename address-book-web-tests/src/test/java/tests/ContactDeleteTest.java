@@ -19,13 +19,13 @@ public class ContactDeleteTest extends TestBase {
       app.contact().submitContactCreation();
     }
 
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData deletedContact = before.iterator().next();
 
     app.contact().delete(deletedContact);
 
     Thread.sleep(1000);
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
 
     MatcherAssert.assertThat(after, CoreMatchers.equalTo(before.withoutAdded(deletedContact)));
   }
