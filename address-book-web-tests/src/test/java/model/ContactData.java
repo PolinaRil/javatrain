@@ -8,7 +8,9 @@ import org.hibernate.annotations.Type;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("contacts")
 @Entity
@@ -28,8 +30,14 @@ public class ContactData {
     private String mobphone;
     @Column(name = "work")
     private String workphone;
-    @Transient
-    private String group;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
+
+
+
     @Column(name = "address")
     private String address;
     @Column(name = "email")
@@ -54,14 +62,16 @@ public class ContactData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return id == that.id && Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname) && Objects.equals(home, that.home) && Objects.equals(mobphone, that.mobphone) && Objects.equals(workphone, that.workphone) && Objects.equals(group, that.group) && Objects.equals(address, that.address) && Objects.equals(email1, that.email1) && Objects.equals(email2, that.email2) && Objects.equals(email3, that.email3) && Objects.equals(created, that.created) && Objects.equals(deprecated, that.deprecated);
+        return id == that.id && Objects.equals(name, that.name) && Objects.equals(lastname, that.lastname) && Objects.equals(home, that.home) && Objects.equals(mobphone, that.mobphone) && Objects.equals(workphone, that.workphone) && Objects.equals(address, that.address) && Objects.equals(email1, that.email1) && Objects.equals(email2, that.email2) && Objects.equals(email3, that.email3) && Objects.equals(created, that.created) && Objects.equals(deprecated, that.deprecated);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lastname, home, mobphone, workphone, group, address, email1, email2, email3, created, deprecated);
+        return Objects.hash(id, name, lastname, home, mobphone, workphone, address, email1, email2, email3, created, deprecated);
     }
-
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
     public String getEmail1() {
         return email1;
     }

@@ -181,4 +181,12 @@ public class ContactHelper extends HelperBase {
 
         return new ContactData().withId(contact.getId()).withName(firstname).withLastname(lastname).withAddress(address).withHomePhone(home).withMobPhone(mobPhone).withWorkPhone(workPhone).withEmail1(email1).withEmail2(email2).withEmail3(email3);
     }
+
+    public void inGroup(ContactData contact) {
+        driver.findElement(By.name("selected[]"));
+        driver.findElement(By.name("selected[]")).click();
+        driver.findElement(By.name("to_group")).click();
+        driver.findElement(By.cssSelector("option[value=\"33\"]")).click();
+        driver.findElement(By.name("add")).click();
+    }
 }

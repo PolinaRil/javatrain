@@ -6,6 +6,7 @@
             <class name="tests.ContactCreationTest"/>
             <class name="tests.ContactInfoTest"/>
             <class name="tests.ContactDeleteTest"/>
+            <class name="tests.ContactAddToGroup"/>
         </classes>
     </test>
 </suite>
