@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ru.javatrain.addressbook.TestBase;
 
-public class ContactAddToGroup extends TestBase {
+public class ContactDeleteFromGroup extends TestBase {
 
     @BeforeTest
     public void ensurePreconditions() {
@@ -23,16 +23,14 @@ public class ContactAddToGroup extends TestBase {
     }
 
     @Test
-    public void testContactAddToGroup() {
+    public void testContactDeleteFromGroup() {
         app.contact().returnToContact();
         Groups groups = app.db().groups();
         Contacts contacts = app.db().contacts();
         ContactData modifiedContact = contacts.iterator().next();
 
         System.out.println(modifiedContact.getGroups());
-
-        app.contact().inGroup(modifiedContact);
-        //app.contact().returnToContact();
+        app.contact().inAndOutGroup(modifiedContact);
     }
 
 }

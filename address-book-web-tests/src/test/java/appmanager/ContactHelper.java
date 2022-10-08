@@ -186,7 +186,16 @@ public class ContactHelper extends HelperBase {
         driver.findElement(By.name("selected[]"));
         driver.findElement(By.name("selected[]")).click();
         driver.findElement(By.name("to_group")).click();
-        driver.findElement(By.cssSelector("option[value=\"33\"]")).click();
         driver.findElement(By.name("add")).click();
+    }
+    public void inAndOutGroup(ContactData contact) {
+        driver.findElement(By.name("selected[]"));
+        driver.findElement(By.name("selected[]")).click();
+        driver.findElement(By.name("to_group")).click();
+        driver.findElement(By.name("add")).click();
+        driver.findElement(By.cssSelector("#content a")).click();
+        driver.findElement(By.name("selected[]")).click();
+        driver.findElement(By.name("remove")).click();
+
     }
 }
