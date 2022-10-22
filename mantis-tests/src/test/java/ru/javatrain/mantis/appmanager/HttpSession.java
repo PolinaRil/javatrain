@@ -46,8 +46,6 @@ public class HttpSession {
 
         String body = geTextFrom(response);
 
-        System.out.println(body);
-
         return body.contains(String.format("<span class=\"user-info\">%s</span>", username));
     }
 
