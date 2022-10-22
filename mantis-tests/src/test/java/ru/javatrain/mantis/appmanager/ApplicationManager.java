@@ -16,9 +16,10 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
     private final Properties properties;
-    public WebDriver driver;
+    private WebDriver driver;
 
     private String browser;
+    private RegistrationHelper registrationHelper;
 
     public ApplicationManager(String browser) throws IOException {
         this.browser = browser;
@@ -33,26 +34,12 @@ public class ApplicationManager {
         System.setProperty("webdriver.chrome.driver", properties.getProperty("webdriver.chrome.driver"));
         System.setProperty("webdriver.ie.driver", properties.getProperty("webdriver.ie.driver"));
 
-
-        switch (browser) {
-            case BrowserType.CHROME:
-                driver = new ChromeDriver();
-                break;
-            case BrowserType.IE:
-                driver = new InternetExplorerDriver();
-                break;
-            default:
-                driver = new FirefoxDriver();
-                break;
-        }
-
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        driver.get(properties.getProperty("web.baseUrl"));
-
     }
 
     public void stop() {
-        driver.quit();
+       if (driver!= null) {
+           driver.quit();
+       }
     }
 
     public HttpSession newSession() {
@@ -71,5 +58,32 @@ public class ApplicationManager {
 
     public Object getProperty(String key) {
         return properties.getProperty(key);
+    }
+
+    public RegistrationHelper registration() {
+        if(registrationHelper ==null) {
+            registrationHelper = new RegistrationHelper(this);
+        }
+        return registrationHelper;
+    }
+
+    public WebDriver getDriver() {
+        if (driver ==null) {
+            switch (browser) {
+                case BrowserType.CHROME:
+                    driver = new ChromeDriver();
+                    break;
+                case BrowserType.IE:
+                    driver = new InternetExplorerDriver();
+                    break;
+                default:
+                    driver = new FirefoxDriver();
+                    break;
+            }
+
+            driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+            driver.get(properties.getProperty("web.baseUrl"));
+        }
+        return driver;
     }
 }
