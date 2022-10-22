@@ -49,11 +49,14 @@ public class ApplicationManager {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.get(properties.getProperty("web.baseUrl"));
 
-
     }
 
     public void stop() {
         driver.quit();
+    }
+
+    public HttpSession newSession() {
+        return new HttpSession(this);
     }
 
     public boolean isElementPresent(By by) {
@@ -66,4 +69,7 @@ public class ApplicationManager {
     }
 
 
+    public Object getProperty(String key) {
+        return properties.getProperty(key);
+    }
 }

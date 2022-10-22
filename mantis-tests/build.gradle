@@ -28,4 +28,5 @@ dependencies {
     implementation 'org.slf4j:slf4j-log4j12:2.0.0-alpha7'
     implementation 'org.seleniumhq.selenium:selenium-java:4.4.0'
     implementation 'org.hamcrest:hamcrest:2.2'
+    implementation 'com.weicoder:httpclient:3.5.5'
 }
